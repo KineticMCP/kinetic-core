@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-12-20
+### Renaming
+- Renamed project from `salesforce-toolkit` to **Kinetic Core**.
+- Updated internal package structure to `kinetic_core`.
+- Added backward compatibility shim for `salesforce_toolkit` imports.
+
+### Changed
+- CLI command `sf-toolkit` now points to `kinetic_core` engine.
+- Documentation updated to reflect the new rebrand.
+
 ## [1.0.0] - 2025-12-05
 
 ### Added
