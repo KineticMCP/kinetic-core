@@ -135,6 +135,7 @@ logs/
 *.log
 
 # Salesforce specific
+secrets/
 server.key
 certs/
 *.pem
