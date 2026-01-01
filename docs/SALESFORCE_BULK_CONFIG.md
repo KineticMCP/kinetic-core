@@ -835,3 +835,16 @@ Funziona:
 **Kinetic Core version:** 1.1.0
 **Status:** ✅ Pronto per implementazione Bulk API v2
 
+
+
+
+
+bene ora rileggi l'intero workspace
+
+oltre kinetic-core ho aggiunto kinetincmcp
+
+praticamente l'aggiornamento di Kinetic-Core serve per essere integrato in kineticmcp
+
+quindi leggi la codebase di kineticmcp e dimmi gli impatti generati da questo upgrade
+
+e fammi capire quanti e quali step di implementazione dovremo compiere per avere l'aggiornamento bulk api v2 completo anzi direi tutte le funzionalità possibili per connttere il server mcp a salesforce
