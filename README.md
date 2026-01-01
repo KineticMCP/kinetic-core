@@ -1,6 +1,6 @@
 # Kinetic Core
 
-![Kinetic Core Header](assets/kinetic-core.png)
+![Kinetic Core Header](assets/kinetic-core.jpg)
 
 > The core engine for Salesforce AI agents. A comprehensive, production-ready Python library for Salesforce integration.
 
