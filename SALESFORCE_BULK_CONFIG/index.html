@@ -1,0 +1,2855 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The core engine for Salesforce AI agents.">
+      
+      
+      
+        <link rel="canonical" href="https://antonio-backend-projects.github.io/kinetic-core/SALESFORCE_BULK_CONFIG/">
+      
+      
+        <link rel="prev" href="../api/BULK_API_V2/">
+      
+      
+        <link rel="next" href="../BULK_API_ANALYSIS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Bulk Config - Kinetic Core</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#salesforce-external-app-configuration-for-bulk-api-v2" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Kinetic Core" class="md-header__button md-logo" aria-label="Kinetic Core" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kinetic Core
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bulk Config
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/antonio-backend-projects/kinetic-core" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    antonio-backend-projects/kinetic-core
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Kinetic Core" class="md-nav__button md-logo" aria-label="Kinetic Core" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kinetic Core
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/antonio-backend-projects/kinetic-core" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    antonio-backend-projects/kinetic-core
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QUICK_START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SALESFORCE_SETUP_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Salesforce Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DOCKER_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USER_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TESTING_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/AUTHENTICATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/CRUD_OPERATIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRUD Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/FIELD_MAPPING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Field Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/PIPELINES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/BULK_API_V2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk API v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk Config
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#risposta-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 RISPOSTA RAPIDA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 RISPOSTA RAPIDA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serve-creare-una-nuova-external-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serve creare una nuova External App?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurazione-attuale-vs-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 CONFIGURAZIONE ATTUALE vs BULK API v2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 CONFIGURAZIONE ATTUALE vs BULK API v2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-attuale-rest-api-funzionante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Configurazione Attuale (REST API funzionante)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifiche-necessarie-per-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 MODIFICHE NECESSARIE PER BULK API v2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 MODIFICHE NECESSARIE PER BULK API v2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-oauth-scopes-critico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1️⃣ OAuth Scopes (CRITICO!)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1️⃣ OAuth Scopes (CRITICO!)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-attuale-insufficiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Configurazione Attuale (insufficiente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-corretta-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Configurazione Corretta (Bulk API v2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attenzione-rigenerare-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ ATTENZIONE: Rigenerare Token!
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-user-permissions-profilepermission-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2️⃣ User Permissions (Profile/Permission Set)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2️⃣ User Permissions (Profile/Permission Set)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permessi-attuali-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Permessi Attuali (REST API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permessi-aggiuntivi-per-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Permessi Aggiuntivi per Bulk API v2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-object-level-security-ols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3️⃣ Object-Level Security (OLS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3️⃣ Object-Level Security (OLS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-ogni-oggetto-usato-con-bulk-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per ogni oggetto usato con Bulk API:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guida-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 GUIDA STEP-BY-STEP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 GUIDA STEP-BY-STEP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-modifica-connected-app-esistente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Modifica Connected App Esistente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-crea-permission-set-per-bulk-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Crea Permission Set per Bulk API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-rigenera-jwt-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Rigenera JWT Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-test-bulk-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Test Bulk API Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 TROUBLESHOOTING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 TROUBLESHOOTING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#errore-403-forbidden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: 403 Forbidden
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errore-400-invalid_grant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: 400 invalid_grant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errore-404-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: 404 Not Found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errore-token-funziona-per-rest-ma-non-per-bulk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: Token funziona per REST ma non per Bulk
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 CHECKLIST COMPLETA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 CHECKLIST COMPLETA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connected-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Connected App
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Permission Set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-permissions-per-ogni-oggetto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Object Permissions (per ogni oggetto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#una-app-o-due-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 UNA APP o DUE APP?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 UNA APP o DUE APP?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opzione-1-una-sola-app-consigliato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opzione 1: Una Sola App (✅ CONSIGLIATO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opzione-2-due-app-separate-solo-casi-specifici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opzione 2: Due App Separate (⚠️ Solo casi specifici)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practice-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 BEST PRACTICE PRODUCTION
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 BEST PRACTICE PRODUCTION">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-raccomandata-una-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurazione Raccomandata (Una App)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#script-di-verifica-automatica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 SCRIPT DI VERIFICA AUTOMATICA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurazione-finale-riassunta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 CONFIGURAZIONE FINALE RIASSUNTA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 CONFIGURAZIONE FINALE RIASSUNTA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prima-rest-api-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prima (REST API only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dopo-rest-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dopo (REST + Bulk API v2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusione" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ CONCLUSIONE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ CONCLUSIONE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#risposta-alla-domanda-originale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risposta alla Domanda Originale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cosa-serve-fare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cosa Serve Fare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tempo-richiesto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tempo Richiesto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefici
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BULK_API_ANALYSIS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PUBLISHING_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#risposta-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 RISPOSTA RAPIDA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 RISPOSTA RAPIDA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serve-creare-una-nuova-external-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serve creare una nuova External App?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurazione-attuale-vs-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 CONFIGURAZIONE ATTUALE vs BULK API v2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 CONFIGURAZIONE ATTUALE vs BULK API v2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-attuale-rest-api-funzionante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Configurazione Attuale (REST API funzionante)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifiche-necessarie-per-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 MODIFICHE NECESSARIE PER BULK API v2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 MODIFICHE NECESSARIE PER BULK API v2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-oauth-scopes-critico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1️⃣ OAuth Scopes (CRITICO!)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1️⃣ OAuth Scopes (CRITICO!)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-attuale-insufficiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Configurazione Attuale (insufficiente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-corretta-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Configurazione Corretta (Bulk API v2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attenzione-rigenerare-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ ATTENZIONE: Rigenerare Token!
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-user-permissions-profilepermission-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2️⃣ User Permissions (Profile/Permission Set)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2️⃣ User Permissions (Profile/Permission Set)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permessi-attuali-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Permessi Attuali (REST API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permessi-aggiuntivi-per-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Permessi Aggiuntivi per Bulk API v2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-object-level-security-ols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3️⃣ Object-Level Security (OLS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3️⃣ Object-Level Security (OLS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-ogni-oggetto-usato-con-bulk-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per ogni oggetto usato con Bulk API:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guida-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 GUIDA STEP-BY-STEP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 GUIDA STEP-BY-STEP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-modifica-connected-app-esistente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Modifica Connected App Esistente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-crea-permission-set-per-bulk-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Crea Permission Set per Bulk API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-rigenera-jwt-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Rigenera JWT Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-test-bulk-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Test Bulk API Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 TROUBLESHOOTING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 TROUBLESHOOTING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#errore-403-forbidden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: 403 Forbidden
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errore-400-invalid_grant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: 400 invalid_grant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errore-404-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: 404 Not Found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errore-token-funziona-per-rest-ma-non-per-bulk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errore: Token funziona per REST ma non per Bulk
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 CHECKLIST COMPLETA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 CHECKLIST COMPLETA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connected-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Connected App
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Permission Set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-permissions-per-ogni-oggetto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Object Permissions (per ogni oggetto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#una-app-o-due-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 UNA APP o DUE APP?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 UNA APP o DUE APP?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opzione-1-una-sola-app-consigliato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opzione 1: Una Sola App (✅ CONSIGLIATO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opzione-2-due-app-separate-solo-casi-specifici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opzione 2: Due App Separate (⚠️ Solo casi specifici)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practice-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 BEST PRACTICE PRODUCTION
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 BEST PRACTICE PRODUCTION">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurazione-raccomandata-una-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurazione Raccomandata (Una App)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#script-di-verifica-automatica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 SCRIPT DI VERIFICA AUTOMATICA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurazione-finale-riassunta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 CONFIGURAZIONE FINALE RIASSUNTA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 CONFIGURAZIONE FINALE RIASSUNTA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prima-rest-api-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prima (REST API only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dopo-rest-bulk-api-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dopo (REST + Bulk API v2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusione" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ CONCLUSIONE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ CONCLUSIONE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#risposta-alla-domanda-originale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risposta alla Domanda Originale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cosa-serve-fare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cosa Serve Fare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tempo-richiesto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tempo Richiesto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefici
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="salesforce-external-app-configuration-for-bulk-api-v2">Salesforce External App Configuration for Bulk API v2<a class="headerlink" href="#salesforce-external-app-configuration-for-bulk-api-v2" title="Permanent link">&para;</a></h1>
+<p><strong>Data:</strong> 2025-12-28
+<strong>Scope:</strong> Configurazione Connected App per supportare Bulk API v2
+<strong>Domanda:</strong> Serve una External App separata per Bulk API?</p>
+<hr />
+<h2 id="risposta-rapida">🎯 RISPOSTA RAPIDA<a class="headerlink" href="#risposta-rapida" title="Permanent link">&para;</a></h2>
+<h3 id="serve-creare-una-nuova-external-app">Serve creare una nuova External App?<a class="headerlink" href="#serve-creare-una-nuova-external-app" title="Permanent link">&para;</a></h3>
+<p><strong>❌ NO - Puoi usare la stessa Connected App esistente</strong></p>
+<p><strong>MA</strong> devi aggiungere:</p>
+<ol>
+<li>✅ OAuth Scope "full" (o "web")</li>
+<li>✅ User Permission "Bulk API Hard Delete"</li>
+<li>✅ User Permission "Modify All Data"</li>
+<li>✅ Rigenerare il JWT token dopo le modifiche</li>
+</ol>
+<hr />
+<h2 id="configurazione-attuale-vs-bulk-api-v2">📊 CONFIGURAZIONE ATTUALE vs BULK API v2<a class="headerlink" href="#configurazione-attuale-vs-bulk-api-v2" title="Permanent link">&para;</a></h2>
+<h3 id="configurazione-attuale-rest-api-funzionante">✅ Configurazione Attuale (REST API funzionante)<a class="headerlink" href="#configurazione-attuale-rest-api-funzionante" title="Permanent link">&para;</a></h3>
+<p><strong>Tua Connected App:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Connected App: Kinetic-Core
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── OAuth Scopes
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── api              ✅ Funziona per REST
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   └── refresh_token    ✅ Funziona per refresh
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── JWT Bearer Flow: Enabled
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── Certificate: Installato
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>└── Permessi Base: API Enabled
+</span></code></pre></div></p>
+<p><strong>Funziona per:</strong>
+- ✅ REST API standard
+- ✅ Composite API (batch &lt;200)
+- ✅ Query/SOQL
+- ✅ CRUD operations</p>
+<p><strong>NON funziona per:</strong>
+- ❌ Bulk API v2 jobs
+- ❌ Upload CSV massivi
+- ❌ Processi asincroni bulk</p>
+<hr />
+<h2 id="modifiche-necessarie-per-bulk-api-v2">🚨 MODIFICHE NECESSARIE PER BULK API v2<a class="headerlink" href="#modifiche-necessarie-per-bulk-api-v2" title="Permanent link">&para;</a></h2>
+<h3 id="1-oauth-scopes-critico">1️⃣ OAuth Scopes (CRITICO!)<a class="headerlink" href="#1-oauth-scopes-critico" title="Permanent link">&para;</a></h3>
+<h4 id="configurazione-attuale-insufficiente">❌ Configurazione Attuale (insufficiente)<a class="headerlink" href="#configurazione-attuale-insufficiente" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">OAuth Scopes</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span><span class="w">              </span><span class="c1"># ✅ REST funziona</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh_token</span><span class="w">    </span><span class="c1"># ✅ Refresh funziona</span>
+</span></code></pre></div>
+<p><strong>Problema:</strong> Salesforce restituisce 403 Forbidden su <code>/jobs/ingest</code></p>
+<h4 id="configurazione-corretta-bulk-api-v2">✅ Configurazione Corretta (Bulk API v2)<a class="headerlink" href="#configurazione-corretta-bulk-api-v2" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">OAuth Scopes richiesti</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span><span class="w">              </span><span class="c1"># ✅ REST API base</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh_token</span><span class="w">    </span><span class="c1"># ✅ Token refresh</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span><span class="w">             </span><span class="c1"># ⭐ OBBLIGATORIO per Bulk API v2</span>
+</span></code></pre></div>
+<p><strong>ALTERNATIVA (più granulare):</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">OAuth Scopes alternativi</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span><span class="w">              </span><span class="c1"># ✅ REST API base</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh_token</span><span class="w">    </span><span class="c1"># ✅ Token refresh</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span><span class="w">              </span><span class="c1"># ⭐ Include accesso Bulk API</span>
+</span></code></pre></div>
+<h3 id="attenzione-rigenerare-token">⚠️ ATTENZIONE: Rigenerare Token!<a class="headerlink" href="#attenzione-rigenerare-token" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Dopo aver modificato gli scope OAuth nella Connected App:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="m">1</span>.<span class="w"> </span>Salva<span class="w"> </span>modifiche<span class="w"> </span><span class="k">in</span><span class="w"> </span>Salesforce
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="m">2</span>.<span class="w"> </span>Attendi<span class="w"> </span><span class="m">2</span>-10<span class="w"> </span>minuti<span class="w"> </span><span class="o">(</span>propagazione<span class="w"> </span>cache<span class="w"> </span>Salesforce<span class="o">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="m">3</span>.<span class="w"> </span>Rigenera<span class="w"> </span>un<span class="w"> </span>nuovo<span class="w"> </span>JWT<span class="w"> </span>token
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="m">4</span>.<span class="w"> </span>NON<span class="w"> </span>riutilizzare<span class="w"> </span>token<span class="w"> </span>cached/salvati
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># I token esistenti NON acquisiscono automaticamente i nuovi scope!</span>
+</span></code></pre></div>
+<hr />
+<h2 id="2-user-permissions-profilepermission-set">2️⃣ User Permissions (Profile/Permission Set)<a class="headerlink" href="#2-user-permissions-profilepermission-set" title="Permanent link">&para;</a></h2>
+<h3 id="permessi-attuali-rest-api">✅ Permessi Attuali (REST API)<a class="headerlink" href="#permessi-attuali-rest-api" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">User Permissions (minimo per REST)</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Enabled                     ✅ Base</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">View Setup and Configuration    ✅ Setup</span>
+</span></code></pre></div>
+<h3 id="permessi-aggiuntivi-per-bulk-api-v2">✅ Permessi Aggiuntivi per Bulk API v2<a class="headerlink" href="#permessi-aggiuntivi-per-bulk-api-v2" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">User Permissions OBBLIGATORI per Bulk</span><span class="p">:</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Enabled                     ✅ Già presente</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bulk API Hard Delete            ⭐ NUOVO - Obbligatorio</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">View All Data                   ⭐ NUOVO - Per query bulk</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Modify All Data                 ⭐ NUOVO - Per insert/update/delete bulk</span>
+</span></code></pre></div>
+<p><strong>Dove configurarli:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Setup → Users → Permission Sets → Create New
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Name: Bulk API Access
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>API Name: Bulk_API_Access
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>System Permissions:
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>☑ API Enabled
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>☑ Bulk API Hard Delete        ⭐ CRITICO
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>☑ View All Data               ⭐ Per query bulk
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>☑ Modify All Data             ⭐ Per operazioni bulk
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>Assigned Users:
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>→ Aggiungi l&#39;utente JWT/OAuth
+</span></code></pre></div>
+<hr />
+<h2 id="3-object-level-security-ols">3️⃣ Object-Level Security (OLS)<a class="headerlink" href="#3-object-level-security-ols" title="Permanent link">&para;</a></h2>
+<h3 id="per-ogni-oggetto-usato-con-bulk-api">Per ogni oggetto usato con Bulk API:<a class="headerlink" href="#per-ogni-oggetto-usato-con-bulk-api" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="l l-Scalar l-Scalar-Plain">Setup → Object Manager → Account (esempio)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="l l-Scalar l-Scalar-Plain">Object Permissions richiesti</span><span class="p p-Indicator">:</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read         ✅ Per query</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create       ✅ Per insert/upsert</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Edit         ✅ Per update/upsert</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Delete       ✅ Per delete</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">View All     ⭐ CONSIGLIATO per Bulk</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Modify All   ⭐ CONSIGLIATO per Bulk</span>
+</span></code></pre></div>
+<p><strong>Configurazione tramite Permission Set:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Permission Set → Object Settings → Account
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>☑ Read
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>☑ Create
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>☑ Edit
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>☑ Delete
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>☑ View All Records      ⭐ Evita SOQL restrictions
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>☑ Modify All Records    ⭐ Evita sharing restrictions
+</span></code></pre></div>
+<hr />
+<h2 id="guida-step-by-step">🔧 GUIDA STEP-BY-STEP<a class="headerlink" href="#guida-step-by-step" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-modifica-connected-app-esistente">Step 1: Modifica Connected App Esistente<a class="headerlink" href="#step-1-modifica-connected-app-esistente" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Setup → App Manager → [Your Connected App] → Edit
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>Section: OAuth Policies
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>Selected OAuth Scopes:
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  Disponibili                    Selezionati
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  ────────────────              ───────────────────
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>  Access and manage data (api)  →  [MOVE] →  api ✅
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>  Perform requests at any time  →  [MOVE] →  refresh_token ✅
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  Full access (full)            →  [MOVE] →  full ⭐ NUOVO
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>Section: Permitted Users
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>  ☑ Admin approved users are pre-authorized
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>Section: IP Relaxation
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>  Development: ☑ Relax IP restrictions
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>  Production:  ☑ Enforce IP restrictions (whitelist)
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>[Save]
+</span></code></pre></div>
+<p><strong>⏱ Tempo di propagazione:</strong> 2-10 minuti</p>
+<hr />
+<h3 id="step-2-crea-permission-set-per-bulk-api">Step 2: Crea Permission Set per Bulk API<a class="headerlink" href="#step-2-crea-permission-set-per-bulk-api" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Setup → Permission Sets → New
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Label: Bulk API Access
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>API Name: Bulk_API_Access
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>License: --None--
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>[Save] → [System Permissions]
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>System Permissions to Enable:
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>  ☑ API Enabled
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>  ☑ Bulk API Hard Delete              ⭐ CRITICO
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>  ☑ View All Data                     ⭐ Per query bulk
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>  ☑ Modify All Data                   ⭐ Per operazioni bulk
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>[Save]
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>[Object Settings] → Edit → Account
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>Account Object Permissions:
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>  ☑ Read
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>  ☑ Create
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>  ☑ Edit
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>  ☑ Delete
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>  ☑ View All Records                  ⭐ Bulk queries
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>  ☑ Modify All Records                ⭐ Bulk operations
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>[Save]
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a>[Manage Assignments] → Add Assignments
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a>
+</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a>Select Users:
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a>  ☑ [Your JWT/OAuth User]
+</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>
+</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a>[Assign]
+</span></code></pre></div>
+<hr />
+<h3 id="step-3-rigenera-jwt-token">Step 3: Rigenera JWT Token<a class="headerlink" href="#step-3-rigenera-jwt-token" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Attendi 5-10 minuti dopo modifiche scope</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># Poi rigenera token con kinetic-core:</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">kinetic_core</span><span class="w"> </span><span class="kn">import</span> <span class="n">JWTAuthenticator</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="n">auth</span> <span class="o">=</span> <span class="n">JWTAuthenticator</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="n">session</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span>  <span class="c1"># Nuovo token con scope &quot;full&quot;</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New token generated: </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">access_token</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Instance URL: </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">instance_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>⚠️ IMPORTANTE:</strong>
+- Elimina token cached
+- Non riutilizzare vecchi token
+- Il nuovo token contiene i nuovi scope</p>
+<hr />
+<h3 id="step-4-test-bulk-api-access">Step 4: Test Bulk API Access<a class="headerlink" href="#step-4-test-bulk-api-access" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Test creazione job Bulk API v2</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">access_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">}</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">instance_url</span><span class="si">}</span><span class="s2">/services/data/v62.0/jobs/ingest&quot;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    <span class="n">url</span><span class="p">,</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>        <span class="s2">&quot;object&quot;</span><span class="p">:</span> <span class="s2">&quot;Account&quot;</span><span class="p">,</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>        <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>        <span class="s2">&quot;contentType&quot;</span><span class="p">:</span> <span class="s2">&quot;CSV&quot;</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>    <span class="p">}</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="p">)</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Status: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">201</span><span class="p">:</span>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Bulk API v2 WORKS!&quot;</span><span class="p">)</span>
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>    <span class="n">job</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Job ID: </span><span class="si">{</span><span class="n">job</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;State: </span><span class="si">{</span><span class="n">job</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>    <span class="c1"># Cleanup: abort test job</span>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>    <span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">job</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>        <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;Aborted&quot;</span><span class="p">}</span>
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>    <span class="p">)</span>
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test job aborted&quot;</span><span class="p">)</span>
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">403</span><span class="p">:</span>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FAILED: Missing permissions&quot;</span><span class="p">)</span>
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;→ Add &#39;Bulk API Hard Delete&#39; permission&quot;</span><span class="p">)</span>
+</span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;→ Add &#39;Modify All Data&#39; permission&quot;</span><span class="p">)</span>
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>
+</span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span> <span class="ow">and</span> <span class="s2">&quot;invalid_grant&quot;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ FAILED: OAuth scope issue&quot;</span><span class="p">)</span>
+</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;→ Add &#39;full&#39; scope to Connected App&quot;</span><span class="p">)</span>
+</span><span id="__span-13-45"><a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;→ Wait 5-10 minutes&quot;</span><span class="p">)</span>
+</span><span id="__span-13-46"><a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;→ Regenerate JWT token&quot;</span><span class="p">)</span>
+</span><span id="__span-13-47"><a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>
+</span><span id="__span-13-48"><a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-13-49"><a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Output atteso:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Status: 201
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>✅ Bulk API v2 WORKS!
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Job ID: 750XXXXXXXXXXXXXXX
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>State: Open
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>Test job aborted
+</span></code></pre></div>
+<hr />
+<h2 id="troubleshooting">🔍 TROUBLESHOOTING<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="errore-403-forbidden">Errore: 403 Forbidden<a class="headerlink" href="#errore-403-forbidden" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;errorCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INSUFFICIENT_ACCESS&quot;</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Insufficient privileges&quot;</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Diagnosi:</strong> Mancano permessi utente</p>
+<p><strong>Soluzione:</strong>
+1. ✅ Verifica Permission Set assegnato
+2. ✅ Aggiungi "Bulk API Hard Delete"
+3. ✅ Aggiungi "Modify All Data"
+4. ✅ Verifica Object Permissions (View All, Modify All)</p>
+<hr />
+<h3 id="errore-400-invalid_grant">Errore: 400 invalid_grant<a class="headerlink" href="#errore-400-invalid_grant" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;invalid_grant&quot;</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;error_description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user hasn&#39;t approved this consumer&quot;</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Diagnosi:</strong> Scope OAuth insufficienti o token non aggiornato</p>
+<p><strong>Soluzione:</strong>
+1. ✅ Aggiungi scope "full" alla Connected App
+2. ✅ Attendi 5-10 minuti (propagazione)
+3. ✅ Rigenera nuovo JWT token
+4. ✅ NON usare token cached</p>
+<hr />
+<h3 id="errore-404-not-found">Errore: 404 Not Found<a class="headerlink" href="#errore-404-not-found" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="nt">&quot;errorCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NOT_FOUND&quot;</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The requested resource does not exist&quot;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Diagnosi:</strong> Endpoint sbagliato o API version troppo vecchia</p>
+<p><strong>Soluzione:</strong>
+1. ✅ Usa API version &gt;= v52.0
+2. ✅ Endpoint corretto: <code>/services/data/v62.0/jobs/ingest</code>
+3. ✅ Non confondere con Bulk API v1 (<code>/async/</code>)</p>
+<hr />
+<h3 id="errore-token-funziona-per-rest-ma-non-per-bulk">Errore: Token funziona per REST ma non per Bulk<a class="headerlink" href="#errore-token-funziona-per-rest-ma-non-per-bulk" title="Permanent link">&para;</a></h3>
+<p><strong>Diagnosi:</strong> Token generato prima di aggiungere scope "full"</p>
+<p><strong>Soluzione:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 1. Verifica scope nella Connected App</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Setup<span class="w"> </span>→<span class="w"> </span>App<span class="w"> </span>Manager<span class="w"> </span>→<span class="w"> </span><span class="o">[</span>App<span class="o">]</span><span class="w"> </span>→<span class="w"> </span>View<span class="w"> </span>→<span class="w"> </span>OAuth<span class="w"> </span>Scopes
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Deve contenere &quot;full&quot; o &quot;web&quot;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="c1"># 2. Elimina token cached</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>rm<span class="w"> </span>.token_cache<span class="w">  </span><span class="c1"># o equivalente</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="c1"># 3. Rigenera token</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from kinetic_core import JWTAuthenticator;</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="s2">auth = JWTAuthenticator.from_env();</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="s2">auth.authenticate()&quot;</span>
+</span></code></pre></div></p>
+<hr />
+<h2 id="checklist-completa">📋 CHECKLIST COMPLETA<a class="headerlink" href="#checklist-completa" title="Permanent link">&para;</a></h2>
+<h3 id="connected-app">✅ Connected App<a class="headerlink" href="#connected-app" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] OAuth Scope "api" presente</li>
+<li>[ ] OAuth Scope "refresh_token" presente</li>
+<li>[ ] OAuth Scope "full" o "web" aggiunto ⭐ NUOVO</li>
+<li>[ ] Certificate JWT configurato</li>
+<li>[ ] Permitted Users configurati</li>
+<li>[ ] IP Relaxation configurata</li>
+</ul>
+<h3 id="permission-set">✅ Permission Set<a class="headerlink" href="#permission-set" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Permission Set "Bulk API Access" creato</li>
+<li>[ ] System Permission: API Enabled</li>
+<li>[ ] System Permission: Bulk API Hard Delete ⭐ NUOVO</li>
+<li>[ ] System Permission: View All Data ⭐ NUOVO</li>
+<li>[ ] System Permission: Modify All Data ⭐ NUOVO</li>
+<li>[ ] Permission Set assegnato all'utente JWT</li>
+</ul>
+<h3 id="object-permissions-per-ogni-oggetto">✅ Object Permissions (per ogni oggetto)<a class="headerlink" href="#object-permissions-per-ogni-oggetto" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Read permission</li>
+<li>[ ] Create permission</li>
+<li>[ ] Edit permission</li>
+<li>[ ] Delete permission</li>
+<li>[ ] View All Records ⭐ CONSIGLIATO</li>
+<li>[ ] Modify All Records ⭐ CONSIGLIATO</li>
+</ul>
+<h3 id="testing">✅ Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Atteso 5-10 minuti dopo modifiche</li>
+<li>[ ] Rigenerato JWT token</li>
+<li>[ ] Testato endpoint: <code>POST /jobs/ingest</code></li>
+<li>[ ] Ottenuto risposta 201 Created</li>
+<li>[ ] Verificato Job ID valido</li>
+</ul>
+<hr />
+<h2 id="una-app-o-due-app">💡 UNA APP o DUE APP?<a class="headerlink" href="#una-app-o-due-app" title="Permanent link">&para;</a></h2>
+<h3 id="opzione-1-una-sola-app-consigliato">Opzione 1: Una Sola App (✅ CONSIGLIATO)<a class="headerlink" href="#opzione-1-una-sola-app-consigliato" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nt">Connected App</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kinetic-Core</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">OAuth Scopes</span><span class="p p-Indicator">:</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span><span class="w">           </span><span class="c1"># REST API</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh_token</span><span class="w"> </span><span class="c1"># Refresh</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span><span class="w">          </span><span class="c1"># Bulk API v2</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w w-Error">  </span><span class="nt">Permessi Utente</span><span class="p">:</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Enabled</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bulk API Hard Delete</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">View All Data</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Modify All Data</span>
+</span></code></pre></div>
+<p><strong>Vantaggi:</strong>
+- ✅ Gestione semplificata
+- ✅ Un solo token per tutto
+- ✅ Meno configurazione
+- ✅ Stesso auth flow</p>
+<p><strong>Quando usare:</strong>
+- ✅ La maggior parte dei casi
+- ✅ Sviluppo e test
+- ✅ Applicazioni che usano sia REST che Bulk</p>
+<hr />
+<h3 id="opzione-2-due-app-separate-solo-casi-specifici">Opzione 2: Due App Separate (⚠️ Solo casi specifici)<a class="headerlink" href="#opzione-2-due-app-separate-solo-casi-specifici" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nt">App 1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kinetic-Core-REST</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">OAuth Scopes</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">refresh_token</span><span class="p p-Indicator">]</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="nt">Uso</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CRUD, Query, Composite</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nt">App 2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kinetic-Core-Bulk</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">OAuth Scopes</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">api</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">refresh_token</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">full</span><span class="p p-Indicator">]</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="nt">Uso</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solo Bulk API v2</span>
+</span></code></pre></div>
+<p><strong>Quando usare:</strong>
+- ⚠️ Policy di sicurezza che separano REST da Bulk
+- ⚠️ Audit trail separati richiesti
+- ⚠️ Team diversi gestiscono REST e Bulk
+- ⚠️ Limiti API da separare</p>
+<p><strong>Svantaggi:</strong>
+- ❌ Doppia gestione
+- ❌ Due token da gestire
+- ❌ Più complessità
+- ❌ Più certificati/configurazioni</p>
+<hr />
+<h2 id="best-practice-production">🎯 BEST PRACTICE PRODUCTION<a class="headerlink" href="#best-practice-production" title="Permanent link">&para;</a></h2>
+<h3 id="configurazione-raccomandata-una-app">Configurazione Raccomandata (Una App)<a class="headerlink" href="#configurazione-raccomandata-una-app" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="l l-Scalar l-Scalar-Plain">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="l l-Scalar l-Scalar-Plain">Connected App</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kinetic-Core</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="l l-Scalar l-Scalar-Plain">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="nt">OAuth Configuration</span><span class="p">:</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">  </span><span class="nt">Scopes</span><span class="p">:</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span><span class="w">              </span><span class="c1"># Base REST API</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh_token</span><span class="w">    </span><span class="c1"># Token refresh</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span><span class="w">             </span><span class="c1"># Bulk API v2 + advanced features</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">  </span><span class="nt">Permitted Users</span><span class="p">:</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Admin approved users are pre-authorized</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="w">  </span><span class="nt">IP Restrictions</span><span class="p">:</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="w">    </span><span class="nt">Development</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Relaxed</span>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="w">    </span><span class="nt">Production</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enforced (whitelist IP ranges)</span>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="l l-Scalar l-Scalar-Plain">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="nt">Permission Set</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kinetic Core API Access</span>
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a><span class="l l-Scalar l-Scalar-Plain">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>
+</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a><span class="nt">System Permissions</span><span class="p">:</span>
+</span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ API Enabled</span>
+</span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Bulk API Hard Delete</span>
+</span><span id="__span-21-25"><a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ View All Data</span>
+</span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Modify All Data</span>
+</span><span id="__span-21-27"><a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>
+</span><span id="__span-21-28"><a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a><span class="l l-Scalar l-Scalar-Plain">Object Permissions (Account, Contact, etc)</span><span class="p p-Indicator">:</span>
+</span><span id="__span-21-29"><a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Read</span>
+</span><span id="__span-21-30"><a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Create</span>
+</span><span id="__span-21-31"><a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Edit</span>
+</span><span id="__span-21-32"><a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Delete</span>
+</span><span id="__span-21-33"><a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ View All Records</span>
+</span><span id="__span-21-34"><a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Modify All Records</span>
+</span><span id="__span-21-35"><a id="__codelineno-21-35" name="__codelineno-21-35" href="#__codelineno-21-35"></a>
+</span><span id="__span-21-36"><a id="__codelineno-21-36" name="__codelineno-21-36" href="#__codelineno-21-36"></a><span class="nt">Assigned To</span><span class="p">:</span>
+</span><span id="__span-21-37"><a id="__codelineno-21-37" name="__codelineno-21-37" href="#__codelineno-21-37"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JWT Service User (lantoniotrento343@agentforce.com)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="script-di-verifica-automatica">🧪 SCRIPT DI VERIFICA AUTOMATICA<a class="headerlink" href="#script-di-verifica-automatica" title="Permanent link">&para;</a></h2>
+<p>Salva come: <code>tests/verify_bulk_config.py</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="ch">#!/usr/bin/env python3</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="sd">Verify Salesforce configuration for Bulk API v2.</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="sd">Tests:</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="sd">1. JWT Authentication</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="sd">2. Bulk API endpoint access</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="sd">3. Job creation</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="sd">4. Permissions check</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="kn">from</span><span class="w"> </span><span class="nn">kinetic_core</span><span class="w"> </span><span class="kn">import</span> <span class="n">JWTAuthenticator</span>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_authentication</span><span class="p">():</span>
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Test JWT authentication.&quot;&quot;&quot;</span>
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">1️⃣ Testing JWT Authentication...&quot;</span><span class="p">)</span>
+</span><span id="__span-22-20"><a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-22-21"><a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a>        <span class="n">auth</span> <span class="o">=</span> <span class="n">JWTAuthenticator</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
+</span><span id="__span-22-22"><a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span>
+</span><span id="__span-22-23"><a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ Authenticated: </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">instance_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-24"><a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ User: </span><span class="si">{</span><span class="n">auth</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-25"><a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ API Version: </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">api_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-26"><a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a>        <span class="k">return</span> <span class="n">session</span>
+</span><span id="__span-22-27"><a id="__codelineno-22-27" name="__codelineno-22-27" href="#__codelineno-22-27"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-22-28"><a id="__codelineno-22-28" name="__codelineno-22-28" href="#__codelineno-22-28"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ❌ FAILED: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-29"><a id="__codelineno-22-29" name="__codelineno-22-29" href="#__codelineno-22-29"></a>        <span class="k">return</span> <span class="kc">None</span>
+</span><span id="__span-22-30"><a id="__codelineno-22-30" name="__codelineno-22-30" href="#__codelineno-22-30"></a>
+</span><span id="__span-22-31"><a id="__codelineno-22-31" name="__codelineno-22-31" href="#__codelineno-22-31"></a>
+</span><span id="__span-22-32"><a id="__codelineno-22-32" name="__codelineno-22-32" href="#__codelineno-22-32"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_bulk_api_access</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+</span><span id="__span-22-33"><a id="__codelineno-22-33" name="__codelineno-22-33" href="#__codelineno-22-33"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Test Bulk API v2 endpoint access.&quot;&quot;&quot;</span>
+</span><span id="__span-22-34"><a id="__codelineno-22-34" name="__codelineno-22-34" href="#__codelineno-22-34"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">2️⃣ Testing Bulk API v2 Access...&quot;</span><span class="p">)</span>
+</span><span id="__span-22-35"><a id="__codelineno-22-35" name="__codelineno-22-35" href="#__codelineno-22-35"></a>
+</span><span id="__span-22-36"><a id="__codelineno-22-36" name="__codelineno-22-36" href="#__codelineno-22-36"></a>    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-22-37"><a id="__codelineno-22-37" name="__codelineno-22-37" href="#__codelineno-22-37"></a>        <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">access_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-22-38"><a id="__codelineno-22-38" name="__codelineno-22-38" href="#__codelineno-22-38"></a>        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span>
+</span><span id="__span-22-39"><a id="__codelineno-22-39" name="__codelineno-22-39" href="#__codelineno-22-39"></a>    <span class="p">}</span>
+</span><span id="__span-22-40"><a id="__codelineno-22-40" name="__codelineno-22-40" href="#__codelineno-22-40"></a>
+</span><span id="__span-22-41"><a id="__codelineno-22-41" name="__codelineno-22-41" href="#__codelineno-22-41"></a>    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">instance_url</span><span class="si">}</span><span class="s2">/services/data/</span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">api_version</span><span class="si">}</span><span class="s2">/jobs/ingest&quot;</span>
+</span><span id="__span-22-42"><a id="__codelineno-22-42" name="__codelineno-22-42" href="#__codelineno-22-42"></a>
+</span><span id="__span-22-43"><a id="__codelineno-22-43" name="__codelineno-22-43" href="#__codelineno-22-43"></a>    <span class="c1"># Create test job</span>
+</span><span id="__span-22-44"><a id="__codelineno-22-44" name="__codelineno-22-44" href="#__codelineno-22-44"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span><span id="__span-22-45"><a id="__codelineno-22-45" name="__codelineno-22-45" href="#__codelineno-22-45"></a>        <span class="n">url</span><span class="p">,</span>
+</span><span id="__span-22-46"><a id="__codelineno-22-46" name="__codelineno-22-46" href="#__codelineno-22-46"></a>        <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="__span-22-47"><a id="__codelineno-22-47" name="__codelineno-22-47" href="#__codelineno-22-47"></a>        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-22-48"><a id="__codelineno-22-48" name="__codelineno-22-48" href="#__codelineno-22-48"></a>            <span class="s2">&quot;object&quot;</span><span class="p">:</span> <span class="s2">&quot;Account&quot;</span><span class="p">,</span>
+</span><span id="__span-22-49"><a id="__codelineno-22-49" name="__codelineno-22-49" href="#__codelineno-22-49"></a>            <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+</span><span id="__span-22-50"><a id="__codelineno-22-50" name="__codelineno-22-50" href="#__codelineno-22-50"></a>            <span class="s2">&quot;contentType&quot;</span><span class="p">:</span> <span class="s2">&quot;CSV&quot;</span>
+</span><span id="__span-22-51"><a id="__codelineno-22-51" name="__codelineno-22-51" href="#__codelineno-22-51"></a>        <span class="p">}</span>
+</span><span id="__span-22-52"><a id="__codelineno-22-52" name="__codelineno-22-52" href="#__codelineno-22-52"></a>    <span class="p">)</span>
+</span><span id="__span-22-53"><a id="__codelineno-22-53" name="__codelineno-22-53" href="#__codelineno-22-53"></a>
+</span><span id="__span-22-54"><a id="__codelineno-22-54" name="__codelineno-22-54" href="#__codelineno-22-54"></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">201</span><span class="p">:</span>
+</span><span id="__span-22-55"><a id="__codelineno-22-55" name="__codelineno-22-55" href="#__codelineno-22-55"></a>        <span class="n">job</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span id="__span-22-56"><a id="__codelineno-22-56" name="__codelineno-22-56" href="#__codelineno-22-56"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ Bulk API v2 accessible&quot;</span><span class="p">)</span>
+</span><span id="__span-22-57"><a id="__codelineno-22-57" name="__codelineno-22-57" href="#__codelineno-22-57"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ Job created: </span><span class="si">{</span><span class="n">job</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-58"><a id="__codelineno-22-58" name="__codelineno-22-58" href="#__codelineno-22-58"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ State: </span><span class="si">{</span><span class="n">job</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-59"><a id="__codelineno-22-59" name="__codelineno-22-59" href="#__codelineno-22-59"></a>
+</span><span id="__span-22-60"><a id="__codelineno-22-60" name="__codelineno-22-60" href="#__codelineno-22-60"></a>        <span class="c1"># Cleanup: abort test job</span>
+</span><span id="__span-22-61"><a id="__codelineno-22-61" name="__codelineno-22-61" href="#__codelineno-22-61"></a>        <span class="n">requests</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+</span><span id="__span-22-62"><a id="__codelineno-22-62" name="__codelineno-22-62" href="#__codelineno-22-62"></a>            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">job</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-22-63"><a id="__codelineno-22-63" name="__codelineno-22-63" href="#__codelineno-22-63"></a>            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="__span-22-64"><a id="__codelineno-22-64" name="__codelineno-22-64" href="#__codelineno-22-64"></a>            <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;Aborted&quot;</span><span class="p">}</span>
+</span><span id="__span-22-65"><a id="__codelineno-22-65" name="__codelineno-22-65" href="#__codelineno-22-65"></a>        <span class="p">)</span>
+</span><span id="__span-22-66"><a id="__codelineno-22-66" name="__codelineno-22-66" href="#__codelineno-22-66"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ✅ Test job aborted&quot;</span><span class="p">)</span>
+</span><span id="__span-22-67"><a id="__codelineno-22-67" name="__codelineno-22-67" href="#__codelineno-22-67"></a>        <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-22-68"><a id="__codelineno-22-68" name="__codelineno-22-68" href="#__codelineno-22-68"></a>
+</span><span id="__span-22-69"><a id="__codelineno-22-69" name="__codelineno-22-69" href="#__codelineno-22-69"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-22-70"><a id="__codelineno-22-70" name="__codelineno-22-70" href="#__codelineno-22-70"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   ❌ FAILED: HTTP </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-71"><a id="__codelineno-22-71" name="__codelineno-22-71" href="#__codelineno-22-71"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Error: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">[:</span><span class="mi">200</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-22-72"><a id="__codelineno-22-72" name="__codelineno-22-72" href="#__codelineno-22-72"></a>
+</span><span id="__span-22-73"><a id="__codelineno-22-73" name="__codelineno-22-73" href="#__codelineno-22-73"></a>        <span class="c1"># Diagnose</span>
+</span><span id="__span-22-74"><a id="__codelineno-22-74" name="__codelineno-22-74" href="#__codelineno-22-74"></a>        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">403</span><span class="p">:</span>
+</span><span id="__span-22-75"><a id="__codelineno-22-75" name="__codelineno-22-75" href="#__codelineno-22-75"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   💡 Missing permissions:&quot;</span><span class="p">)</span>
+</span><span id="__span-22-76"><a id="__codelineno-22-76" name="__codelineno-22-76" href="#__codelineno-22-76"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Add &#39;Bulk API Hard Delete&#39; to Permission Set&quot;</span><span class="p">)</span>
+</span><span id="__span-22-77"><a id="__codelineno-22-77" name="__codelineno-22-77" href="#__codelineno-22-77"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Add &#39;Modify All Data&#39; to Permission Set&quot;</span><span class="p">)</span>
+</span><span id="__span-22-78"><a id="__codelineno-22-78" name="__codelineno-22-78" href="#__codelineno-22-78"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Verify Permission Set is assigned to user&quot;</span><span class="p">)</span>
+</span><span id="__span-22-79"><a id="__codelineno-22-79" name="__codelineno-22-79" href="#__codelineno-22-79"></a>
+</span><span id="__span-22-80"><a id="__codelineno-22-80" name="__codelineno-22-80" href="#__codelineno-22-80"></a>        <span class="k">elif</span> <span class="s2">&quot;invalid_grant&quot;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+</span><span id="__span-22-81"><a id="__codelineno-22-81" name="__codelineno-22-81" href="#__codelineno-22-81"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   💡 OAuth scope issue:&quot;</span><span class="p">)</span>
+</span><span id="__span-22-82"><a id="__codelineno-22-82" name="__codelineno-22-82" href="#__codelineno-22-82"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Add &#39;full&#39; scope to Connected App&quot;</span><span class="p">)</span>
+</span><span id="__span-22-83"><a id="__codelineno-22-83" name="__codelineno-22-83" href="#__codelineno-22-83"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Wait 5-10 minutes for propagation&quot;</span><span class="p">)</span>
+</span><span id="__span-22-84"><a id="__codelineno-22-84" name="__codelineno-22-84" href="#__codelineno-22-84"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Regenerate JWT token&quot;</span><span class="p">)</span>
+</span><span id="__span-22-85"><a id="__codelineno-22-85" name="__codelineno-22-85" href="#__codelineno-22-85"></a>
+</span><span id="__span-22-86"><a id="__codelineno-22-86" name="__codelineno-22-86" href="#__codelineno-22-86"></a>        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+</span><span id="__span-22-87"><a id="__codelineno-22-87" name="__codelineno-22-87" href="#__codelineno-22-87"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">   💡 Endpoint issue:&quot;</span><span class="p">)</span>
+</span><span id="__span-22-88"><a id="__codelineno-22-88" name="__codelineno-22-88" href="#__codelineno-22-88"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Check API version &gt;= v52.0&quot;</span><span class="p">)</span>
+</span><span id="__span-22-89"><a id="__codelineno-22-89" name="__codelineno-22-89" href="#__codelineno-22-89"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   → Verify endpoint: /jobs/ingest&quot;</span><span class="p">)</span>
+</span><span id="__span-22-90"><a id="__codelineno-22-90" name="__codelineno-22-90" href="#__codelineno-22-90"></a>
+</span><span id="__span-22-91"><a id="__codelineno-22-91" name="__codelineno-22-91" href="#__codelineno-22-91"></a>        <span class="k">return</span> <span class="kc">False</span>
+</span><span id="__span-22-92"><a id="__codelineno-22-92" name="__codelineno-22-92" href="#__codelineno-22-92"></a>
+</span><span id="__span-22-93"><a id="__codelineno-22-93" name="__codelineno-22-93" href="#__codelineno-22-93"></a>
+</span><span id="__span-22-94"><a id="__codelineno-22-94" name="__codelineno-22-94" href="#__codelineno-22-94"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_permissions</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+</span><span id="__span-22-95"><a id="__codelineno-22-95" name="__codelineno-22-95" href="#__codelineno-22-95"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Test user permissions.&quot;&quot;&quot;</span>
+</span><span id="__span-22-96"><a id="__codelineno-22-96" name="__codelineno-22-96" href="#__codelineno-22-96"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">3️⃣ Testing User Permissions...&quot;</span><span class="p">)</span>
+</span><span id="__span-22-97"><a id="__codelineno-22-97" name="__codelineno-22-97" href="#__codelineno-22-97"></a>
+</span><span id="__span-22-98"><a id="__codelineno-22-98" name="__codelineno-22-98" href="#__codelineno-22-98"></a>    <span class="c1"># This is informational - we can&#39;t directly query permissions via API</span>
+</span><span id="__span-22-99"><a id="__codelineno-22-99" name="__codelineno-22-99" href="#__codelineno-22-99"></a>    <span class="c1"># but we infer from Bulk API access test</span>
+</span><span id="__span-22-100"><a id="__codelineno-22-100" name="__codelineno-22-100" href="#__codelineno-22-100"></a>
+</span><span id="__span-22-101"><a id="__codelineno-22-101" name="__codelineno-22-101" href="#__codelineno-22-101"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ℹ️  Permission verification via Bulk API test&quot;</span><span class="p">)</span>
+</span><span id="__span-22-102"><a id="__codelineno-22-102" name="__codelineno-22-102" href="#__codelineno-22-102"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   ℹ️  If Bulk API works, permissions are correct&quot;</span><span class="p">)</span>
+</span><span id="__span-22-103"><a id="__codelineno-22-103" name="__codelineno-22-103" href="#__codelineno-22-103"></a>    <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-22-104"><a id="__codelineno-22-104" name="__codelineno-22-104" href="#__codelineno-22-104"></a>
+</span><span id="__span-22-105"><a id="__codelineno-22-105" name="__codelineno-22-105" href="#__codelineno-22-105"></a>
+</span><span id="__span-22-106"><a id="__codelineno-22-106" name="__codelineno-22-106" href="#__codelineno-22-106"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+</span><span id="__span-22-107"><a id="__codelineno-22-107" name="__codelineno-22-107" href="#__codelineno-22-107"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run all verification tests.&quot;&quot;&quot;</span>
+</span><span id="__span-22-108"><a id="__codelineno-22-108" name="__codelineno-22-108" href="#__codelineno-22-108"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+</span><span id="__span-22-109"><a id="__codelineno-22-109" name="__codelineno-22-109" href="#__codelineno-22-109"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Salesforce Bulk API v2 Configuration Verification&quot;</span><span class="p">)</span>
+</span><span id="__span-22-110"><a id="__codelineno-22-110" name="__codelineno-22-110" href="#__codelineno-22-110"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+</span><span id="__span-22-111"><a id="__codelineno-22-111" name="__codelineno-22-111" href="#__codelineno-22-111"></a>
+</span><span id="__span-22-112"><a id="__codelineno-22-112" name="__codelineno-22-112" href="#__codelineno-22-112"></a>    <span class="c1"># Test 1: Authentication</span>
+</span><span id="__span-22-113"><a id="__codelineno-22-113" name="__codelineno-22-113" href="#__codelineno-22-113"></a>    <span class="n">session</span> <span class="o">=</span> <span class="n">test_authentication</span><span class="p">()</span>
+</span><span id="__span-22-114"><a id="__codelineno-22-114" name="__codelineno-22-114" href="#__codelineno-22-114"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">session</span><span class="p">:</span>
+</span><span id="__span-22-115"><a id="__codelineno-22-115" name="__codelineno-22-115" href="#__codelineno-22-115"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">❌ Authentication failed. Fix .env configuration.&quot;</span><span class="p">)</span>
+</span><span id="__span-22-116"><a id="__codelineno-22-116" name="__codelineno-22-116" href="#__codelineno-22-116"></a>        <span class="k">return</span> <span class="mi">1</span>
+</span><span id="__span-22-117"><a id="__codelineno-22-117" name="__codelineno-22-117" href="#__codelineno-22-117"></a>
+</span><span id="__span-22-118"><a id="__codelineno-22-118" name="__codelineno-22-118" href="#__codelineno-22-118"></a>    <span class="c1"># Test 2: Bulk API Access</span>
+</span><span id="__span-22-119"><a id="__codelineno-22-119" name="__codelineno-22-119" href="#__codelineno-22-119"></a>    <span class="n">bulk_works</span> <span class="o">=</span> <span class="n">test_bulk_api_access</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+</span><span id="__span-22-120"><a id="__codelineno-22-120" name="__codelineno-22-120" href="#__codelineno-22-120"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">bulk_works</span><span class="p">:</span>
+</span><span id="__span-22-121"><a id="__codelineno-22-121" name="__codelineno-22-121" href="#__codelineno-22-121"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">❌ Bulk API not accessible. Check configuration above.&quot;</span><span class="p">)</span>
+</span><span id="__span-22-122"><a id="__codelineno-22-122" name="__codelineno-22-122" href="#__codelineno-22-122"></a>        <span class="k">return</span> <span class="mi">1</span>
+</span><span id="__span-22-123"><a id="__codelineno-22-123" name="__codelineno-22-123" href="#__codelineno-22-123"></a>
+</span><span id="__span-22-124"><a id="__codelineno-22-124" name="__codelineno-22-124" href="#__codelineno-22-124"></a>    <span class="c1"># Test 3: Permissions</span>
+</span><span id="__span-22-125"><a id="__codelineno-22-125" name="__codelineno-22-125" href="#__codelineno-22-125"></a>    <span class="n">test_permissions</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+</span><span id="__span-22-126"><a id="__codelineno-22-126" name="__codelineno-22-126" href="#__codelineno-22-126"></a>
+</span><span id="__span-22-127"><a id="__codelineno-22-127" name="__codelineno-22-127" href="#__codelineno-22-127"></a>    <span class="c1"># Summary</span>
+</span><span id="__span-22-128"><a id="__codelineno-22-128" name="__codelineno-22-128" href="#__codelineno-22-128"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+</span><span id="__span-22-129"><a id="__codelineno-22-129" name="__codelineno-22-129" href="#__codelineno-22-129"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ✅ ALL TESTS PASSED&quot;</span><span class="p">)</span>
+</span><span id="__span-22-130"><a id="__codelineno-22-130" name="__codelineno-22-130" href="#__codelineno-22-130"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+</span><span id="__span-22-131"><a id="__codelineno-22-131" name="__codelineno-22-131" href="#__codelineno-22-131"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Salesforce is correctly configured for Bulk API v2!&quot;</span><span class="p">)</span>
+</span><span id="__span-22-132"><a id="__codelineno-22-132" name="__codelineno-22-132" href="#__codelineno-22-132"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Connected App Scopes: ✅&quot;</span><span class="p">)</span>
+</span><span id="__span-22-133"><a id="__codelineno-22-133" name="__codelineno-22-133" href="#__codelineno-22-133"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  User Permissions: ✅&quot;</span><span class="p">)</span>
+</span><span id="__span-22-134"><a id="__codelineno-22-134" name="__codelineno-22-134" href="#__codelineno-22-134"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Bulk API Access: ✅&quot;</span><span class="p">)</span>
+</span><span id="__span-22-135"><a id="__codelineno-22-135" name="__codelineno-22-135" href="#__codelineno-22-135"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  You can now implement Bulk API v2 in kinetic-core.&quot;</span><span class="p">)</span>
+</span><span id="__span-22-136"><a id="__codelineno-22-136" name="__codelineno-22-136" href="#__codelineno-22-136"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+</span><span id="__span-22-137"><a id="__codelineno-22-137" name="__codelineno-22-137" href="#__codelineno-22-137"></a>
+</span><span id="__span-22-138"><a id="__codelineno-22-138" name="__codelineno-22-138" href="#__codelineno-22-138"></a>    <span class="k">return</span> <span class="mi">0</span>
+</span><span id="__span-22-139"><a id="__codelineno-22-139" name="__codelineno-22-139" href="#__codelineno-22-139"></a>
+</span><span id="__span-22-140"><a id="__codelineno-22-140" name="__codelineno-22-140" href="#__codelineno-22-140"></a>
+</span><span id="__span-22-141"><a id="__codelineno-22-141" name="__codelineno-22-141" href="#__codelineno-22-141"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-22-142"><a id="__codelineno-22-142" name="__codelineno-22-142" href="#__codelineno-22-142"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</span></code></pre></div>
+<p><strong>Esegui:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>python<span class="w"> </span>tests/verify_bulk_config.py
+</span></code></pre></div>
+<p><strong>Output atteso (successo):</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>======================================================================
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>  Salesforce Bulk API v2 Configuration Verification
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>======================================================================
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>1️⃣ Testing JWT Authentication...
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>   ✅ Authenticated: https://your-instance.salesforce.com
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>   ✅ User: your-user@example.com
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>   ✅ API Version: v62.0
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>2️⃣ Testing Bulk API v2 Access...
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>   ✅ Bulk API v2 accessible
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>   ✅ Job created: 750XXXXXXXXXXXXXXX
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>   ✅ State: Open
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>   ✅ Test job aborted
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>3️⃣ Testing User Permissions...
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>   ℹ️  Permission verification via Bulk API test
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>   ℹ️  If Bulk API works, permissions are correct
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a>======================================================================
+</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a>  ✅ ALL TESTS PASSED
+</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a>======================================================================
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a>
+</span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a>  Salesforce is correctly configured for Bulk API v2!
+</span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a>
+</span><span id="__span-24-26"><a id="__codelineno-24-26" name="__codelineno-24-26" href="#__codelineno-24-26"></a>  Connected App Scopes: ✅
+</span><span id="__span-24-27"><a id="__codelineno-24-27" name="__codelineno-24-27" href="#__codelineno-24-27"></a>  User Permissions: ✅
+</span><span id="__span-24-28"><a id="__codelineno-24-28" name="__codelineno-24-28" href="#__codelineno-24-28"></a>  Bulk API Access: ✅
+</span><span id="__span-24-29"><a id="__codelineno-24-29" name="__codelineno-24-29" href="#__codelineno-24-29"></a>
+</span><span id="__span-24-30"><a id="__codelineno-24-30" name="__codelineno-24-30" href="#__codelineno-24-30"></a>  You can now implement Bulk API v2 in kinetic-core.
+</span><span id="__span-24-31"><a id="__codelineno-24-31" name="__codelineno-24-31" href="#__codelineno-24-31"></a>======================================================================
+</span></code></pre></div>
+<hr />
+<h2 id="configurazione-finale-riassunta">📊 CONFIGURAZIONE FINALE RIASSUNTA<a class="headerlink" href="#configurazione-finale-riassunta" title="Permanent link">&para;</a></h2>
+<h3 id="prima-rest-api-only">Prima (REST API only)<a class="headerlink" href="#prima-rest-api-only" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nt">Connected App OAuth Scopes</span><span class="p">:</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh_token</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="nt">User Permissions</span><span class="p">:</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Enabled</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="nt">Funziona</span><span class="p">:</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ REST API</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Composite API (&lt;200 records)</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">❌ Bulk API v2</span>
+</span></code></pre></div>
+<h3 id="dopo-rest-bulk-api-v2">Dopo (REST + Bulk API v2)<a class="headerlink" href="#dopo-rest-bulk-api-v2" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nt">Connected App OAuth Scopes</span><span class="p">:</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh_token</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full              ⭐ AGGIUNTO</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="nt">User Permissions</span><span class="p">:</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Enabled</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bulk API Hard Delete        ⭐ AGGIUNTO</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">View All Data               ⭐ AGGIUNTO</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Modify All Data             ⭐ AGGIUNTO</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="nt">Funziona</span><span class="p">:</span>
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ REST API</span>
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Composite API</span>
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">✅ Bulk API v2     ⭐ NUOVO</span>
+</span></code></pre></div>
+<hr />
+<h2 id="conclusione">✅ CONCLUSIONE<a class="headerlink" href="#conclusione" title="Permanent link">&para;</a></h2>
+<h3 id="risposta-alla-domanda-originale">Risposta alla Domanda Originale<a class="headerlink" href="#risposta-alla-domanda-originale" title="Permanent link">&para;</a></h3>
+<p><strong>Serve una External App separata per Bulk API v2?</strong></p>
+<p><strong>❌ NO - Una sola Connected App è sufficiente e consigliata</strong></p>
+<h3 id="cosa-serve-fare">Cosa Serve Fare<a class="headerlink" href="#cosa-serve-fare" title="Permanent link">&para;</a></h3>
+<ol>
+<li>✅ Aggiungere scope OAuth "full" alla Connected App esistente</li>
+<li>✅ Creare Permission Set con permessi Bulk API</li>
+<li>✅ Assegnare Permission Set all'utente JWT</li>
+<li>✅ Rigenerare JWT token (IMPORTANTE!)</li>
+<li>✅ Testare con script di verifica</li>
+</ol>
+<h3 id="tempo-richiesto">Tempo Richiesto<a class="headerlink" href="#tempo-richiesto" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Modifica Connected App: 5 minuti</li>
+<li>Creazione Permission Set: 10 minuti</li>
+<li>Propagazione Salesforce: 5-10 minuti</li>
+<li>Test e verifica: 5 minuti</li>
+</ul>
+<p><strong>Totale:</strong> ~30 minuti</p>
+<h3 id="benefici">Benefici<a class="headerlink" href="#benefici" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Un solo token per REST e Bulk</li>
+<li>✅ Configurazione più semplice</li>
+<li>✅ Meno overhead di gestione</li>
+<li>✅ Performance 20-50x migliori su grandi volumi</li>
+</ul>
+<hr />
+<p><strong>Documento creato:</strong> 2025-12-28
+<strong>Configurazione testata:</strong> Salesforce Developer Edition
+<strong>Kinetic Core version:</strong> 1.1.0
+<strong>Status:</strong> ✅ Pronto per implementazione Bulk API v2</p>
+<p>bene ora rileggi l'intero workspace</p>
+<p>oltre kinetic-core ho aggiunto kinetincmcp</p>
+<p>praticamente l'aggiornamento di Kinetic-Core serve per essere integrato in kineticmcp</p>
+<p>quindi leggi la codebase di kineticmcp e dimmi gli impatti generati da questo upgrade</p>
+<p>e fammi capire quanti e quali step di implementazione dovremo compiere per avere l'aggiornamento bulk api v2 completo anzi direi tutte le funzionalità possibili per connttere il server mcp a salesforce</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Antonio Trento
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
