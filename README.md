@@ -231,7 +231,7 @@ result = client.bulk.upsert("Account", updates, "External_Key__c")
 - 📊 Detailed per-record error reporting
 - 🎯 Smart retry and exponential backoff
 
-**[📖 Complete Bulk API Documentation →](docs/api/BULK_API_V2.md)**
+**[📖 Complete Bulk API Documentation →](https://kineticmcp.com/kinetic-core/api/BULK_API_V2/)**
 
 ---
 
@@ -261,16 +261,17 @@ sf-toolkit describe Account --fields
 ### 📖 Complete Guides
 
 #### Bulk API v2 (NEW)
-- **[Complete API Reference](docs/api/BULK_API_V2.md)** - Full API documentation
-- **[Quick Start Guide](docs/guides/BULK_QUICKSTART.md)** - Get started in 5 minutes
-- **[Practical Examples](docs/examples/BULK_EXAMPLES.md)** - Real-world use cases
+- **[Complete API Reference](https://kineticmcp.com/kinetic-core/api/BULK_API_V2/)** - Full API documentation
+- **[Bulk Quick Start](https://kineticmcp.com/kinetic-core/guides/BULK_QUICKSTART/)** - Get started in 5 minutes
+- **[Practical Examples](https://kineticmcp.com/kinetic-core/examples/BULK_EXAMPLES/)** - Real-world use cases
 
 #### Core Documentation
-- **[User Guide](docs/USER_GUIDE.md)** - Complete usage documentation
-- **[Quick Start](docs/QUICK_START.md)** - Getting started guide
-- **[Salesforce Setup](docs/SALESFORCE_SETUP_GUIDE.md)** - Configure Salesforce
-- **[Testing Guide](docs/TESTING_GUIDE.md)** - Test your integration
-- **[Docker Guide](docs/DOCKER_GUIDE.md)** - Containerized deployment
+- **[User Guide](https://kineticmcp.com/kinetic-core/USER_GUIDE/)** - Complete usage documentation
+- **[Installation](https://kineticmcp.com/kinetic-core/INSTALLATION/)** - Installation guide
+- **[Quick Start](https://kineticmcp.com/kinetic-core/QUICK_START/)** - Getting started guide
+- **[Salesforce Setup](https://kineticmcp.com/kinetic-core/SALESFORCE_SETUP_GUIDE/)** - Configure Salesforce
+- **[Testing Guide](https://kineticmcp.com/kinetic-core/TESTING_GUIDE/)** - Test your integration
+- **[Docker Guide](https://kineticmcp.com/kinetic-core/DOCKER_GUIDE/)** - Containerized deployment
 
 ---
 
