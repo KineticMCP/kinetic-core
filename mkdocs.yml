@@ -1,8 +1,8 @@
 site_name: Kinetic-core
 site_description: The core engine for Salesforce AI agents.
-site_url: https://antonio-backend-projects.github.io/kinetic-core/
-repo_url: https://github.com/antonio-backend-projects/kinetic-core
-repo_name: antonio-backend-projects/kinetic-core
+site_url: https://kineticmcp.com/kinetic-core/
+repo_url: https://github.com/KineticMCP/kinetic-core
+repo_name: KineticMCP/kinetic-core
 
 theme:
   name: material
