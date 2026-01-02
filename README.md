@@ -231,7 +231,7 @@ result = client.bulk.upsert("Account", updates, "External_Key__c")
 - 📊 Detailed per-record error reporting
 - 🎯 Smart retry and exponential backoff
 
-**[📖 Complete Bulk API Documentation →](https://kineticmcp.com/kinetic-core/api/BULK_API_V2/)**
+**[📖 Complete Bulk API Documentation →](docs/api/BULK_API_V2.md)**
 
 ---
 
@@ -678,10 +678,10 @@ black salesforce_toolkit/
 
 ## 🛣️ Roadmap
 
-- [ ] Support for Bulk API 2.0 (async bulk operations)
+- [x] Support for Bulk API 2.0 (async bulk operations)
 - [ ] Metadata API support (deploy/retrieve)
 - [ ] Streaming API (PushTopic, Generic Streaming)
-- [ ] Built-in retry mechanism with exponential backoff
+- [x] Built-in retry mechanism with exponential backoff
 - [ ] Dry-run mode for pipelines
 - [ ] Performance monitoring and metrics
 - [ ] Integration with popular ORMs (SQLAlchemy, Django)
