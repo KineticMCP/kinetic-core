@@ -5,6 +5,98 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-01-02
+
+### Added
+
+#### Bulk API v2 Support - Major New Feature
+- **NEW**: Complete Salesforce Bulk API v2 implementation for high-volume data operations
+- `BulkV2Client` class accessible via `client.bulk` property on `SalesforceClient`
+- Support for all Bulk API v2 operations:
+  - `insert()` - Bulk insert records
+  - `update()` - Bulk update existing records (requires Id field)
+  - `upsert()` - Bulk insert or update using external ID field
+  - `delete()` - Bulk delete records
+  - `hard_delete()` - Permanently delete records (bypasses recycle bin)
+  - `query()` - Export large datasets with SOQL queries
+
+#### New Modules and Classes
+- `kinetic_core.bulk.client` - `BulkV2Client` main client implementation
+- `kinetic_core.bulk.job` - Data models for bulk operations:
+  - `BulkJob` - Job status and metadata tracking
+  - `BulkResult` - Operation results with success/failure counts
+  - `BulkQueryResult` - Query-specific results
+  - `BulkError` - Detailed error information for failed records
+- `kinetic_core.bulk.operations` - `BulkOperation` enum (INSERT, UPDATE, UPSERT, DELETE, HARD_DELETE, QUERY)
+- `kinetic_core.bulk.serializer` - `CSVSerializer` for CSV conversion
+- `kinetic_core.bulk.poller` - `JobPoller` with exponential backoff polling
+
+#### Features
+- Automatic CSV serialization/deserialization for record data
+- Asynchronous job processing with intelligent status polling
+- Exponential backoff strategy for efficient API usage (2s initial, 30s max, 1.5x factor)
+- Progress callbacks for long-running operations
+- Configurable operation timeouts (default 10 minutes for operations, 30 minutes for queries)
+- Comprehensive error reporting with per-record failure details
+- Support for external ID fields in upsert operations
+- Lazy initialization of Bulk client to minimize overhead when not needed
+- Full type hints throughout for excellent IDE support
+- Field validation (Id required for update/delete, external ID for upsert)
+
+### Changed
+- **Package version**: 1.1.0 → 2.0.0 (major version for significant new capability)
+- **Development status**: Beta → Production/Stable in setup.py classifiers
+- **Package description**: Enhanced to highlight Bulk API v2 support
+- **Keywords**: Added `bulk-api`, `bulk-api-v2`, `high-volume`, `data-processing`
+- **Public API exports**: Added Bulk classes to `kinetic_core.__init__.py`
+- **Legal headers**: Added copyright and attribution headers to all source files
+- **Documentation**: Added COPYRIGHT file with project information and attribution guidelines
+
+### Technical Details
+- Salesforce API version: v60.0
+- CSV format for data upload/download
+- HTTP methods: POST (create job), PUT (upload data), PATCH (close/abort job), GET (status/results)
+- Job states: Open → UploadComplete → InProgress → JobComplete/Failed/Aborted
+
+### Backward Compatibility
+**100% backward compatible** - No breaking changes introduced:
+
+```python
+# Existing code continues to work unchanged
+client = SalesforceClient(session)
+client.create("Account", {"Name": "Test"})  # Still works
+client.query("SELECT Id FROM Account")       # Still works
+```
+
+### Usage Example
+```python
+from kinetic_core import JWTAuthenticator, SalesforceClient
+
+# Authenticate
+auth = JWTAuthenticator.from_env()
+session = auth.authenticate()
+client = SalesforceClient(session)
+
+# Bulk insert 10,000 records
+records = [{"Name": f"Account {i}", "Industry": "Technology"} for i in range(10000)]
+result = client.bulk.insert("Account", records)
+
+print(f"✓ Successfully inserted: {result.success_count}")
+print(f"✗ Failed: {result.failed_count}")
+
+# Check for errors
+if result.errors:
+    for error in result.errors[:5]:  # Show first 5 errors
+        print(f"Error: {error.message}")
+```
+
+### Performance
+- Optimized for millions of records
+- Recommended for operations with >2,000 records
+- Async job processing allows non-blocking operations
+- Efficient CSV serialization minimizes memory usage
+- Supports up to 150 million records per job (Salesforce limit)
+
 ## [1.1.0] - 2025-12-20
 ### Renaming
 - Renamed project from `salesforce-toolkit` to **Kinetic Core**.
@@ -58,7 +150,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Bulk API 2.0 support for large-scale operations
 - Metadata API integration
 - Streaming API support (PushTopic, Generic Streaming)
 - Built-in retry mechanism with exponential backoff

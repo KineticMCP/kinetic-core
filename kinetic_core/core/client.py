@@ -1,4 +1,18 @@
 """
+Kinetic Core - Salesforce Integration Library
+Copyright (c) 2025 Antonio Trento (https://antoniotrento.net)
+
+This file is part of Kinetic Core, the foundational library powering KineticMCP.
+
+Project: https://github.com/antonio-backend-projects/kinetic-core
+Website: https://kineticmcp.com
+Author: Antonio Trento
+License: MIT (see LICENSE file for details)
+
+Part of the KineticMCP ecosystem - AI-powered Salesforce integration tools.
+"""
+
+"""
 Salesforce Client - Comprehensive CRUD operations for any Salesforce object.
 
 Provides a high-level, generic interface for interacting with Salesforce REST API.
@@ -64,9 +78,31 @@ class SalesforceClient:
         """
         self.session = session
         self.logger = logger_instance or logger
+        self._bulk_client = None  # Lazy initialization
 
         if not session.is_valid():
             raise ValueError("Invalid session: missing instance_url or access_token")
+
+    @property
+    def bulk(self):
+        """
+        Access Bulk API v2 operations.
+
+        Returns:
+            BulkV2Client: Client for bulk operations
+
+        Example:
+            ```python
+            # Bulk insert 10,000 records
+            records = [{"Name": f"Account {i}"} for i in range(10000)]
+            result = client.bulk.insert("Account", records)
+            print(f"Success: {result.success_count}, Failed: {result.failed_count}")
+            ```
+        """
+        if self._bulk_client is None:
+            from kinetic_core.bulk import BulkV2Client
+            self._bulk_client = BulkV2Client(self.session)
+        return self._bulk_client
 
     # ============================================================================
     # CREATE Operations

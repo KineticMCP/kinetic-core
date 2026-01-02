@@ -4,6 +4,7 @@ Salesforce Toolkit - Setup Configuration
 A comprehensive Python library for Salesforce integration with:
 - Multiple authentication methods (JWT, OAuth)
 - Generic CRUD operations on any Salesforce object
+- Bulk API v2 for high-volume data operations (NEW in v2.0)
 - Field mapping and data transformation
 - ETL pipeline framework
 - Comprehensive logging
@@ -27,16 +28,16 @@ with open(requirements_file, "r", encoding="utf-8") as f:
 
 setup(
     name="kinetic-core",
-    version="1.1.0",
+    version="2.0.0",
     author="Antonio Trento",
     author_email="info@antoniotrento.net",
-    description="The core engine for Salesforce AI agents",
+    description="Salesforce integration library with Bulk API v2 support",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/antonio-backend-projects/kinetic-core",
     packages=find_packages(exclude=["tests", "examples", "docs"]),
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Office/Business",
@@ -82,6 +83,8 @@ setup(
         "crm",
         "integration",
         "api",
+        "bulk-api",
+        "bulk-api-v2",
         "etl",
         "data-sync",
         "rest-api",
@@ -89,7 +92,9 @@ setup(
         "oauth",
         "ai",
         "agent",
-        "mcp"
+        "mcp",
+        "high-volume",
+        "data-processing"
     ],
     project_urls={
         "Documentation": "https://github.com/antonio-backend-projects/kinetic-core#readme",

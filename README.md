@@ -4,6 +4,8 @@
 
 > The core engine for Salesforce AI agents. A comprehensive, production-ready Python library for Salesforce integration.
 
+> **Part of the [KineticMCP](https://kineticmcp.com) ecosystem** - AI-powered Salesforce integration tools by [Antonio Trento](https://antoniotrento.net)
+
 > [!IMPORTANT]
 > **Legal Disclaimer**: This project is an independent open-source library and is not affiliated with, sponsored by, or endorsed by Salesforce, Inc. "Salesforce" is a trademark of Salesforce, Inc.
 
@@ -30,6 +32,14 @@
   - Create, Read, Update, Delete, Upsert
   - Bulk operations via Composite API
   - Query with automatic pagination
+
+- **⚡ Bulk API v2 Support** _(NEW in v2.0.0)_
+  - Process **millions of records** efficiently
+  - Full support for all Bulk API v2 operations
+  - Smart exponential backoff polling
+  - Progress tracking with callbacks
+  - Comprehensive per-record error reporting
+  - Async job processing
 
 - **🗺️ Flexible Field Mapping**
   - Simple field renaming
@@ -180,7 +190,52 @@ result = pipeline.sync(source_data)
 print(f"Synced {result.success_count}/{result.total_records} records")
 ```
 
-### 4. Command-Line Interface
+### 4. Bulk API v2 (High-Volume Operations)
+
+**✨ NEW in v2.0.0** - Process millions of records efficiently:
+
+```python
+from kinetic_core import JWTAuthenticator, SalesforceClient
+
+# Authenticate
+auth = JWTAuthenticator.from_env()
+session = auth.authenticate()
+client = SalesforceClient(session)
+
+# Bulk insert 10,000 records
+records = [
+    {"Name": f"Account {i}", "Industry": "Technology"}
+    for i in range(10000)
+]
+
+result = client.bulk.insert("Account", records)
+print(f"✓ Success: {result.success_count}")
+print(f"✗ Failed: {result.failed_count}")
+
+# Bulk query for large exports
+query = "SELECT Id, Name FROM Account WHERE CreatedDate = THIS_YEAR"
+result = client.bulk.query(query)
+print(f"Retrieved {result.record_count} records")
+
+# Bulk update with external ID
+updates = [
+    {"External_Key__c": "EXT001", "Name": "Updated Name 1"},
+    {"External_Key__c": "EXT002", "Name": "Updated Name 2"}
+]
+result = client.bulk.upsert("Account", updates, "External_Key__c")
+```
+
+**Key Features**:
+- ⚡ Up to **150 million records** per job
+- 🔄 Async processing with progress tracking
+- 📊 Detailed per-record error reporting
+- 🎯 Smart retry and exponential backoff
+
+**[📖 Complete Bulk API Documentation →](docs/api/BULK_API_V2.md)**
+
+---
+
+### 5. Command-Line Interface
 
 ```bash
 # Test authentication
@@ -202,6 +257,22 @@ sf-toolkit describe Account --fields
 ---
 
 ## 📚 Documentation
+
+### 📖 Complete Guides
+
+#### Bulk API v2 (NEW)
+- **[Complete API Reference](docs/api/BULK_API_V2.md)** - Full API documentation
+- **[Quick Start Guide](docs/guides/BULK_QUICKSTART.md)** - Get started in 5 minutes
+- **[Practical Examples](docs/examples/BULK_EXAMPLES.md)** - Real-world use cases
+
+#### Core Documentation
+- **[User Guide](docs/USER_GUIDE.md)** - Complete usage documentation
+- **[Quick Start](docs/QUICK_START.md)** - Getting started guide
+- **[Salesforce Setup](docs/SALESFORCE_SETUP_GUIDE.md)** - Configure Salesforce
+- **[Testing Guide](docs/TESTING_GUIDE.md)** - Test your integration
+- **[Docker Guide](docs/DOCKER_GUIDE.md)** - Containerized deployment
+
+---
 
 ### Authentication
 
@@ -638,9 +709,28 @@ pip install -e ".[dev]"
 
 ---
 
+## 🌐 Part of KineticMCP
+
+Kinetic Core is the foundational library powering **KineticMCP**, an AI-powered Salesforce integration platform.
+
+**KineticMCP** combines the capabilities of Kinetic Core with the Model Context Protocol (MCP) to enable intelligent automation, natural language interactions, and advanced data management for Salesforce.
+
+- 🌐 **Website**: [kineticmcp.com](https://kineticmcp.com)
+- 🤖 **AI Integration**: Natural language Salesforce operations
+- 🔌 **MCP Protocol**: Seamless integration with AI assistants
+- 📊 **Advanced Analytics**: AI-driven insights and reporting
+
+Built and maintained by **Antonio Trento** - connecting Salesforce with the future of AI.
+
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 Antonio Trento. All rights reserved.
+
+See [COPYRIGHT](COPYRIGHT) for detailed attribution and trademark information.
 
 ---
 

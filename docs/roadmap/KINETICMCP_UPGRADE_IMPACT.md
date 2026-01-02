@@ -1,3 +1,7 @@
+python -m twine upload dist/*
+
+
+
 # KineticMCP Upgrade Impact Analysis & Implementation Plan
 
 **Data Analisi:** 2025-12-28
