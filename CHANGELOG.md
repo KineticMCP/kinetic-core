@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2025-01-02
+
+### Fixed
+- **Documentation Links**: Fixed all documentation links in README.md for PyPI compatibility
+  - Changed relative paths to absolute URLs pointing to https://kineticmcp.com/kinetic-core/
+  - Links now work correctly on both PyPI and GitHub
+  - Added proper link structure for MkDocs documentation site
+
+### Changed
+- **MkDocs Navigation**: Enhanced documentation structure
+  - Added Installation guide to Getting Started section
+  - Created dedicated "Bulk API Guide" section with Quick Start and Examples
+  - Improved documentation organization and discoverability
+
+---
+
 ## [2.0.0] - 2025-01-02
 
 ### Added
