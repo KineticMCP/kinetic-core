@@ -1,4 +1,4 @@
-site_name: Kinetic Core
+site_name: Kinetic-core
 site_description: The core engine for Salesforce AI agents.
 site_url: https://antonio-backend-projects.github.io/kinetic-core/
 repo_url: https://github.com/antonio-backend-projects/kinetic-core
@@ -6,6 +6,8 @@ repo_name: antonio-backend-projects/kinetic-core
 
 theme:
   name: material
+  logo: assets/kineticmcp-logo_192x192.png
+  favicon: assets/kineticmcp-logo_192x192.png
   features:
     - navigation.instant
     - navigation.tracking
@@ -16,15 +18,19 @@ theme:
     - search.highlight
     - content.code.copy
   palette:
-    - scheme: default
-      primary: indigo
-      accent: deep purple
+    # Tema chiaro - Menu nero
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: black
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - scheme: slate
-      primary: indigo
-      accent: deep purple
+    # Tema scuro - Menu bianco
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: white
+      accent: white
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
