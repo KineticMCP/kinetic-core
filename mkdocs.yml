@@ -1,0 +1,65 @@
+site_name: Kinetic Core
+site_description: The core engine for Salesforce AI agents.
+site_url: https://antonio-backend-projects.github.io/kinetic-core/
+repo_url: https://github.com/antonio-backend-projects/kinetic-core
+repo_name: antonio-backend-projects/kinetic-core
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: QUICK_START.md
+    - Salesforce Setup: SALESFORCE_SETUP_GUIDE.md
+    - Docker Guide: DOCKER_GUIDE.md
+  - Core Documentation:
+    - User Guide: USER_GUIDE.md
+    - Testing Guide: TESTING_GUIDE.md
+  - API Reference:
+    - Authentication: api/AUTHENTICATION.md
+    - CRUD Operations: api/CRUD_OPERATIONS.md
+    - Field Mapping: api/FIELD_MAPPING.md
+    - Pipelines: api/PIPELINES.md
+    - Bulk API v2: api/BULK_API_V2.md
+  - Advanced:
+    - Bulk Config: SALESFORCE_BULK_CONFIG.md
+    - Bulk Analysis: BULK_API_ANALYSIS.md
+    - Publishing: PUBLISHING_GUIDE.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: true
+
+copyright: Copyright &copy; 2025 Antonio Trento
