@@ -747,7 +747,7 @@ pytest-mock>=3.12.0      # Mocking for tests
 
 ---
 
-## 📅 Implementation Timeline
+## 📅 Implementation Timeline & Release Process
 
 ### Sprint 1 (Week 1-2): Foundation ⭐ FASE 1
 
@@ -757,12 +757,24 @@ pytest-mock>=3.12.0      # Mocking for tests
 - ✅ XML serialization/deserialization
 - ✅ Basic retrieve functionality
 
+**Tasks:**
+1. Create branch: `git checkout -b feature/metadata-api`
+2. Setup module structure:
+   - `kinetic_core/metadata/__init__.py`
+   - `kinetic_core/metadata/models.py`
+   - `kinetic_core/metadata/xml_builder.py`
+   - `kinetic_core/metadata/xml_parser.py`
+3. Implement CustomField and CustomObject models
+4. Implement XML serialization/deserialization
+5. Unit tests for models
+6. Commit incrementally
+
 **Deliverables:**
 - `metadata/` module with structure
 - `CustomField` and `CustomObject` models
 - `xml_builder.py` and `xml_parser.py`
 - `retriever.py` basic implementation
-- Unit tests for models
+- Unit tests for models (>80% coverage)
 
 **Time Estimate:** 15-20 hours
 
@@ -776,11 +788,19 @@ pytest-mock>=3.12.0      # Mocking for tests
 - ✅ ZIP extraction
 - ✅ Integration tests
 
+**Tasks:**
+1. Implement `MetadataClient.retrieve()`
+2. Implement `MetadataClient.describe_metadata()`
+3. Package.xml generation logic
+4. ZIP file handling
+5. Integration tests with Salesforce org
+6. Commit changes
+
 **Deliverables:**
 - Full `MetadataClient.retrieve()` working
 - Support for all Fase 1 component types
 - Integration tests with real Salesforce org
-- Documentation
+- Error handling
 
 **Time Estimate:** 10-15 hours
 
@@ -794,11 +814,22 @@ pytest-mock>=3.12.0      # Mocking for tests
 - ✅ Dry-run mode
 - ✅ Rollback mechanism
 
+**Tasks:**
+1. Implement `MetadataClient.deploy()`
+2. Implement `MetadataClient.deploy_field()`
+3. Implement `MetadataClient.deploy_object()`
+4. Validation logic (XML schema)
+5. Dry-run mode (check_only parameter)
+6. Rollback mechanism
+7. Integration tests
+8. Commit changes
+
 **Deliverables:**
 - `deployer.py` complete
 - `validator.py` with XML validation
 - Deploy single field/object helpers
 - Error handling and reporting
+- Rollback on error
 
 **Time Estimate:** 20-25 hours
 
@@ -811,17 +842,470 @@ pytest-mock>=3.12.0      # Mocking for tests
 - ✅ Selective deployment
 - ✅ Templates system
 
+**Tasks:**
+1. Implement `MetadataClient.compare()`
+2. Implement selective deployment
+3. Create template system
+4. Add enterprise_crm template
+5. Performance optimizations
+6. Final integration tests
+7. Commit changes
+
 **Deliverables:**
 - `comparator.py` with diff logic
 - Template examples (enterprise_crm, etc.)
-- CLI tool for metadata operations
 - Performance optimizations
+- Complete test suite
 
 **Time Estimate:** 15-20 hours
 
 ---
 
-**Total Time Estimate:** 60-80 hours (1.5-2 mesi part-time)
+### Sprint 5 (Week 7): Documentation ⭐ CRITICO
+
+**Goals:**
+- ✅ Complete MkDocs documentation
+- ✅ Update README.md
+- ✅ Update CHANGELOG.md
+- ✅ Create examples
+
+**Tasks:**
+1. **MkDocs Documentation:**
+   - Create `docs/api/METADATA_API.md`
+   - Create `docs/guides/METADATA_QUICKSTART.md`
+   - Create `docs/examples/METADATA_EXAMPLES.md`
+   - Update `mkdocs.yml` (add new pages)
+   - Test locally: `mkdocs serve`
+
+2. **README.md:**
+   - Add Metadata API section
+   - Update features list
+   - Add usage examples
+   - Update installation instructions
+
+3. **CHANGELOG.md:**
+   - Add [2.1.0] section
+   - List all new features
+   - List changes
+   - Breaking changes (if any)
+
+4. **Commit Documentation:**
+   ```bash
+   git commit -m "Add Metadata API documentation"
+   ```
+
+**Deliverables:**
+- Complete API reference
+- User guides
+- Examples
+- Updated README and CHANGELOG
+
+**Time Estimate:** 8-10 hours
+
+---
+
+### Sprint 6 (Week 8): Pre-Release Preparation ⭐ CRITICO
+
+**Goals:**
+- ✅ Merge to main
+- ✅ Version bump
+- ✅ Build and test package
+
+**Tasks:**
+
+1. **Merge to Main:**
+   ```bash
+   git checkout main
+   git merge feature/metadata-api
+   ```
+
+2. **Version Bump:**
+   - Update `setup.py`: `version="2.1.0"`
+   - Update `kinetic_core/__init__.py`: `__version__ = "2.1.0"`
+   - Commit:
+     ```bash
+     git commit -m "Bump version to v2.1.0"
+     ```
+
+3. **Pre-Release Checks:**
+   - Run full test suite: `pytest tests/ -v`
+   - Code quality: `flake8 kinetic_core/`
+   - Test MkDocs locally: `mkdocs serve`
+   - Verify README rendering
+
+4. **Build Package:**
+   ```bash
+   # Clean previous builds
+   rm -rf dist/ build/ *.egg-info/
+
+   # Build
+   python -m build
+
+   # Verify contents
+   tar -tzf dist/kinetic-core-2.1.0.tar.gz
+   unzip -l dist/kinetic_core-2.1.0-py3-none-any.whl
+
+   # Verify README in package
+   unzip -p dist/kinetic_core-2.1.0-py3-none-any.whl */README.md
+   ```
+
+5. **Test Installation in Clean Virtualenv:**
+   ```bash
+   python -m venv test_env
+   source test_env/bin/activate  # Windows: test_env\Scripts\activate
+   pip install dist/kinetic_core-2.1.0-py3-none-any.whl
+
+   # Test imports
+   python -c "from kinetic_core import SalesforceClient, MetadataClient; print('OK')"
+   python -c "from kinetic_core.metadata import CustomField, CustomObject; print('OK')"
+
+   # Deactivate and cleanup
+   deactivate
+   rm -rf test_env
+   ```
+
+**Deliverables:**
+- Feature merged to main
+- Version bumped
+- Package built and tested locally
+
+**Time Estimate:** 3-4 hours
+
+---
+
+### Sprint 7: TestPyPI Validation ⭐ RECOMMENDED
+
+**Goals:**
+- ✅ Upload to TestPyPI
+- ✅ Verify installation
+- ✅ Verify documentation
+
+**Tasks:**
+
+1. **Upload to TestPyPI:**
+   ```bash
+   twine upload --repository testpypi dist/*
+   ```
+
+2. **Verify on TestPyPI:**
+   - Visit: https://test.pypi.org/project/kinetic-core/
+   - Check version: 2.1.0
+   - Check README rendering
+   - Check links work
+
+3. **Test Installation from TestPyPI:**
+   ```bash
+   python -m venv testpypi_env
+   source testpypi_env/bin/activate
+
+   pip install --index-url https://test.pypi.org/simple/ kinetic-core==2.1.0
+
+   # Test functionality
+   python -c "from kinetic_core import MetadataClient; print('TestPyPI OK')"
+
+   deactivate
+   rm -rf testpypi_env
+   ```
+
+4. **If Issues Found:**
+   - Fix them
+   - Rebuild package (Sprint 6, step 4)
+   - Re-upload to TestPyPI
+
+**Deliverables:**
+- Package verified on TestPyPI
+- Installation tested
+- Documentation verified
+
+**Time Estimate:** 1-2 hours
+
+---
+
+### Sprint 8: Git Tag & MkDocs Deploy ⭐ CRITICO
+
+**Goals:**
+- ✅ Create Git tag
+- ✅ Push to GitHub
+- ✅ Deploy documentation
+
+**Tasks:**
+
+1. **Create Git Tag:**
+   ```bash
+   git tag -a v2.1.0 -m "Release v2.1.0 - Metadata API Support"
+   ```
+
+2. **Push to GitHub:**
+   ```bash
+   git push origin main
+   git push origin v2.1.0
+   ```
+
+3. **Deploy MkDocs:**
+   ```bash
+   mkdocs gh-deploy
+   ```
+
+4. **Verify:**
+   - Check tag on GitHub: https://github.com/KineticMCP/kinetic-core/tags
+   - Check documentation: https://kineticmcp.com/kinetic-core/
+
+**Deliverables:**
+- Git tag created and pushed
+- Documentation deployed and live
+
+**Time Estimate:** 30 minutes
+
+---
+
+### Sprint 9: PyPI Production Release ⭐ CRITICO
+
+**Goals:**
+- ✅ Upload to production PyPI
+- ✅ Verify release
+- ✅ Test installation
+
+**Tasks:**
+
+1. **Final Verification:**
+   - ✅ Git tag exists on GitHub
+   - ✅ MkDocs is live
+   - ✅ README verified in dist/
+   - ✅ CHANGELOG updated
+   - ✅ All tests pass
+
+2. **Upload to Production PyPI:**
+   ```bash
+   twine upload dist/*
+   ```
+
+3. **Verify on PyPI:**
+   - Visit: https://pypi.org/project/kinetic-core/
+   - Check version: 2.1.0
+   - Check README rendering
+   - Check "Project Links" work
+   - Check classifiers
+
+4. **Test Installation:**
+   ```bash
+   python -m venv prod_test_env
+   source prod_test_env/bin/activate
+
+   pip install kinetic-core==2.1.0
+
+   # Verify version
+   python -c "import kinetic_core; print(kinetic_core.__version__)"
+   # Output should be: 2.1.0
+
+   # Test imports
+   python -c "from kinetic_core import MetadataClient; print('Production PyPI OK')"
+
+   deactivate
+   rm -rf prod_test_env
+   ```
+
+**Deliverables:**
+- Package live on PyPI
+- Installation verified
+- Version confirmed
+
+**Time Estimate:** 1 hour
+
+---
+
+### Sprint 10: GitHub Release ⭐ CRITICO
+
+**Goals:**
+- ✅ Create GitHub Release
+- ✅ Add release notes
+- ✅ Attach assets
+
+**Tasks:**
+
+1. **Create GitHub Release:**
+   - Go to: https://github.com/KineticMCP/kinetic-core/releases/new
+   - Select tag: v2.1.0
+   - Title: `v2.1.0 - Metadata API Support`
+
+2. **Release Description:**
+   ```markdown
+   # kinetic-core v2.1.0 - Metadata API Support 🚀
+
+   ## Major New Features
+
+   ### Metadata API Support ⭐
+   Native support for Salesforce Metadata API - manage Salesforce configuration as code!
+
+   **New Module:**
+   ```python
+   from kinetic_core import SalesforceClient
+
+   client = SalesforceClient(session)
+
+   # Retrieve metadata
+   result = client.metadata.retrieve(
+       component_types=["CustomObject", "CustomField"],
+       output_dir="./salesforce_metadata"
+   )
+
+   # Deploy metadata
+   result = client.metadata.deploy(
+       source_dir="./salesforce_metadata",
+       run_tests=True
+   )
+
+   # Create custom field
+   field = CustomField(
+       sobject="Account",
+       name="Phone_Verified__c",
+       type="Checkbox"
+   )
+   client.metadata.deploy_field(field)
+   ```
+
+   **Features:**
+   - ✅ Retrieve metadata from org (backup, documentation)
+   - ✅ Deploy metadata to org (create fields, objects, validation rules)
+   - ✅ Compare metadata between orgs
+   - ✅ Configuration as Code with Git versioning
+   - ✅ Dry-run mode for safe testing
+   - ✅ Automatic rollback on errors
+
+   **Benefits:**
+   - 24-36x faster customer provisioning
+   - 6-12x faster Sandbox→Production deployments
+   - Full audit trail with Git
+   - Instant rollback capabilities
+
+   ## What's Changed
+
+   See [CHANGELOG.md](CHANGELOG.md) for complete details.
+
+   ## Installation
+
+   ```bash
+   pip install --upgrade kinetic-core
+   ```
+
+   ## Documentation
+
+   - [Metadata API Reference](https://kineticmcp.com/kinetic-core/api/METADATA_API/)
+   - [Quick Start Guide](https://kineticmcp.com/kinetic-core/guides/METADATA_QUICKSTART/)
+   - [Examples](https://kineticmcp.com/kinetic-core/examples/METADATA_EXAMPLES/)
+
+   ## Breaking Changes
+
+   ❌ **NONE** - Fully backward compatible with v2.0.x
+
+   ---
+
+   **Full Changelog**: https://github.com/KineticMCP/kinetic-core/compare/v2.0.1...v2.1.0
+   ```
+
+3. **Attach Assets:**
+   - Upload: `kinetic-core-2.1.0.tar.gz`
+   - Upload: `kinetic_core-2.1.0-py3-none-any.whl`
+   - Upload: `CHANGELOG.md`
+
+4. **Publish Release:**
+   - Click "Publish release"
+
+**Deliverables:**
+- GitHub Release published
+- Release notes complete
+- Assets attached
+
+**Time Estimate:** 1 hour
+
+---
+
+### Sprint 11: Post-Release Verification & Communication
+
+**Goals:**
+- ✅ End-to-end verification
+- ✅ Update dependent projects
+- ✅ Announce release
+
+**Tasks:**
+
+1. **End-to-End Verification:**
+   ```bash
+   # Fresh environment
+   python -m venv final_test_env
+   source final_test_env/bin/activate
+
+   # Install from PyPI
+   pip install kinetic-core
+
+   # Should get latest (2.1.0)
+   python -c "import kinetic_core; print(kinetic_core.__version__)"
+
+   # Test basic functionality
+   python << EOF
+   from kinetic_core import JWTAuthenticator, SalesforceClient
+
+   # Authenticate (use your credentials)
+   auth = JWTAuthenticator.from_env()
+   session = auth.authenticate()
+   client = SalesforceClient(session)
+
+   # Test REST API
+   result = client.query("SELECT Id FROM Account LIMIT 1")
+   print(f"✓ REST API works: {len(result['records'])} records")
+
+   # Test Bulk API
+   print("✓ Bulk API client available:", hasattr(client, 'bulk'))
+
+   # Test Metadata API (NEW!)
+   print("✓ Metadata API client available:", hasattr(client, 'metadata'))
+
+   # Test metadata describe
+   metadata_types = client.metadata.describe_metadata()
+   print(f"✓ Metadata API works: {len(metadata_types)} types available")
+   EOF
+
+   deactivate
+   rm -rf final_test_env
+   ```
+
+2. **Update Dependent Projects:**
+   - If KineticMCP or other projects depend on kinetic-core
+   - Update their `requirements.txt`: `kinetic-core>=2.1.0`
+   - Test integration
+
+3. **Announce Release:**
+   - **GitHub Discussions:** Post announcement
+   - **Twitter/LinkedIn:**
+     ```
+     🚀 kinetic-core v2.1.0 released!
+
+     New Metadata API support:
+     - Manage Salesforce config as code
+     - 24-36x faster provisioning
+     - Git versioning & rollback
+
+     https://pypi.org/project/kinetic-core/
+     https://github.com/KineticMCP/kinetic-core/releases/tag/v2.1.0
+     ```
+   - **Email Newsletter:** (if you have one)
+   - **Slack/Discord:** Community announcement
+
+4. **Monitor for Issues:**
+   - Watch GitHub Issues
+   - Monitor PyPI download stats
+   - Check for error reports
+
+**Deliverables:**
+- Complete end-to-end test passed
+- Dependent projects updated
+- Release announced
+- Monitoring in place
+
+**Time Estimate:** 2-3 hours
+
+---
+
+**Total Implementation + Release Time:** 70-90 hours (2-2.5 months part-time)
 
 ---
 
