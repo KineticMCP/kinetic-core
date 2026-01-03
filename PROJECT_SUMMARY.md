@@ -247,17 +247,21 @@ black salesforce_toolkit/
 
 ## 🛣️ Roadmap
 
-### Version 1.1 (Planned)
-- [ ] Bulk API 2.0 support
-- [ ] Built-in retry mechanism with exponential backoff
-- [ ] Dry-run mode for pipelines
-- [ ] Performance metrics
+### Version 2.0.0 (Released)
+- [x] Bulk API 2.0 support
+- [x] Built-in retry mechanism with exponential backoff
 
-### Version 1.2 (Planned)
-- [ ] Metadata API support
+### Version 2.1.0 (Released)
+- [x] Metadata API support (deploy/retrieve/compare)
+- [x] Custom Object & Field native models
+- [x] Template-based object creation
+
+### Version 2.2.0 (Planned)
+- [ ] Selective Deployment (Smart Delta)
+- [ ] Safe Conflict Resolution
+- [ ] Advanced business templates
 - [ ] Streaming API (PushTopic, Generic Streaming)
-- [ ] Integration with popular ORMs
-- [ ] Advanced caching strategies
+- [ ] Integration with popular ORMs (SQLAlchemy, Django)
 
 ### Version 2.0 (Future)
 - [ ] Async/await support

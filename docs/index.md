@@ -677,10 +677,10 @@ black salesforce_toolkit/
 
 ## 🛣️ Roadmap
 
-- [ ] Support for Bulk API 2.0 (async bulk operations)
-- [ ] Metadata API support (deploy/retrieve)
+- [x] Support for Bulk API 2.0 (async bulk operations)
+- [x] Metadata API support (deploy/retrieve)
 - [ ] Streaming API (PushTopic, Generic Streaming)
-- [ ] Built-in retry mechanism with exponential backoff
+- [x] Built-in retry mechanism with exponential backoff
 - [ ] Dry-run mode for pipelines
 - [ ] Performance monitoring and metrics
 - [ ] Integration with popular ORMs (SQLAlchemy, Django)
