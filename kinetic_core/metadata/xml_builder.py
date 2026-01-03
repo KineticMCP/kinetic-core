@@ -56,26 +56,8 @@ def picklist_value_to_xml(picklist: PicklistValue) -> ET.Element:
     return elem
 
 
-def custom_field_to_xml(field: CustomField) -> str:
-    """
-    Convert a CustomField to Salesforce Metadata API XML format.
-
-    Args:
-        field: CustomField instance to serialize
-
-    Returns:
-        XML string in Salesforce Metadata API format
-
-    Example:
-        >>> field = CustomField(
-        ...     sobject="Account",
-        ...     name="Customer_Tier__c",
-        ...     type=FieldType.TEXT,
-        ...     label="Customer Tier",
-        ...     length=50
-        ... )
-        >>> xml = custom_field_to_xml(field)
-    """
+def _custom_field_to_element(field: CustomField) -> ET.Element:
+    """Internal helper to convert CustomField to ET.Element."""
     root = ET.Element("CustomField")
     root.set("xmlns", METADATA_NS)
 
@@ -114,8 +96,12 @@ def custom_field_to_xml(field: CustomField) -> str:
         picklist_elem = ET.SubElement(root, "valueSet")
         _add_subelement(picklist_elem, "restricted", True)
 
+        # valueSetDefinition wrapper is required for local picklists
+        def_elem = ET.SubElement(picklist_elem, "valueSetDefinition")
+        _add_subelement(def_elem, "sorted", False)
+
         for pv in field.picklist_values:
-            picklist_elem.append(picklist_value_to_xml(pv))
+            def_elem.append(picklist_value_to_xml(pv))
 
     elif field.type in (FieldType.LOOKUP, FieldType.MASTER_DETAIL):
         _add_subelement(root, "referenceTo", field.reference_to)
@@ -137,6 +123,30 @@ def custom_field_to_xml(field: CustomField) -> str:
     if field.default_value:
         _add_subelement(root, "defaultValue", field.default_value)
 
+    return root
+
+
+def custom_field_to_xml(field: CustomField) -> str:
+    """
+    Convert a CustomField to Salesforce Metadata API XML format.
+
+    Args:
+        field: CustomField instance to serialize
+
+    Returns:
+        XML string in Salesforce Metadata API format
+
+    Example:
+        >>> field = CustomField(
+        ...     sobject="Account",
+        ...     name="Customer_Tier__c",
+        ...     type=FieldType.TEXT,
+        ...     label="Customer Tier",
+        ...     length=50
+        ... )
+        >>> xml = custom_field_to_xml(field)
+    """
+    root = _custom_field_to_element(field)
     return _prettify_xml(root)
 
 
@@ -225,6 +235,21 @@ def custom_object_to_xml(obj: CustomObject) -> str:
     # Deployment status
     _add_subelement(root, "deploymentStatus", "Deployed")
 
+    # Fields
+    # Fields
+    for field in obj.fields:
+        # Get field element directly
+        field_elem = _custom_field_to_element(field)
+        
+        # Change tag from CustomField to fields (as expected by CustomObject metadata)
+        field_elem.tag = "fields"
+        
+        # Remove xmlns attribute if present to avoid duplication
+        if 'xmlns' in field_elem.attrib:
+            del field_elem.attrib['xmlns']
+            
+        root.append(field_elem)
+
     return _prettify_xml(root)
 
 
@@ -270,6 +295,12 @@ def _prettify_xml(elem: ET.Element) -> str:
     Returns:
         Formatted XML string with proper indentation
     """
+    # Convert to string
     rough_string = ET.tostring(elem, encoding="unicode")
+    
+    # Remove duplicate xmlns attributes if present (ElementTree + manual set complication)
+    import re
+    rough_string = re.sub(r'(\sxmlns="[^"]+")(\sxmlns="[^"]+")', r'\1', rough_string)
+    
     reparsed = minidom.parseString(rough_string)
     return reparsed.toprettyxml(indent="    ", encoding=None)

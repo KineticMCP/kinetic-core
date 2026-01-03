@@ -58,7 +58,7 @@ class BulkV2Client:
             session: Authenticated Salesforce session
         """
         self.session = session
-        self.base_url = f"{session.instance_url}/services/data/v60.0/jobs/ingest"
+        self.base_url = f"{session.instance_url}/services/data/{self.session.api_version}/jobs/ingest"
         self.serializer = CSVSerializer()
 
     def insert(
@@ -355,7 +355,7 @@ class BulkV2Client:
 
     def _create_query_job(self, soql: str) -> BulkJob:
         """Create a bulk query job."""
-        url = f"{self.session.instance_url}/services/data/v60.0/jobs/query"
+        url = f"{self.session.instance_url}/services/data/{self.session.api_version}/jobs/query"
 
         payload = {
             "operation": "query",
@@ -407,7 +407,7 @@ class BulkV2Client:
             is_query: True if this is a query job, False for ingest job
         """
         if is_query:
-            url = f"{self.session.instance_url}/services/data/v60.0/jobs/query/{job_id}"
+            url = f"{self.session.instance_url}/services/data/{self.session.api_version}/jobs/query/{job_id}"
         else:
             url = f"{self.base_url}/{job_id}"
 
@@ -479,7 +479,7 @@ class BulkV2Client:
 
     def _get_query_results(self, job_id: str) -> List[Dict[str, Any]]:
         """Get query results."""
-        url = f"{self.session.instance_url}/services/data/v60.0/jobs/query/{job_id}/results"
+        url = f"{self.session.instance_url}/services/data/{self.session.api_version}/jobs/query/{job_id}/results"
 
         response = requests.get(url, headers=self._get_headers())
         response.raise_for_status()

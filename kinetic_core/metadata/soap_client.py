@@ -34,7 +34,10 @@ class MetadataSOAPClient:
             session: Authenticated Salesforce session
         """
         self.session = session
-        self.endpoint = f"{session.instance_url}/services/Soap/m/{session.api_version}"
+        # Remove 'v' prefix from api_version for Metadata API endpoint
+        # (e.g., v62.0 -> 62.0)
+        api_version_num = session.api_version.lstrip('v')
+        self.endpoint = f"{session.instance_url}/services/Soap/m/{api_version_num}"
 
     def _create_soap_envelope(self, body_content: str) -> str:
         """
@@ -113,10 +116,12 @@ class MetadataSOAPClient:
             Dictionary with metadata types information
         """
         version = api_version or self.session.api_version
+        # Remove 'v' prefix for SOAP body (expects numeric version)
+        version_num = version.lstrip('v')
 
         body_content = f"""
     <met:describeMetadata>
-      <met:asOfVersion>{version}</met:asOfVersion>
+      <met:asOfVersion>{version_num}</met:asOfVersion>
     </met:describeMetadata>"""
 
         envelope = self._create_soap_envelope(body_content)
@@ -177,6 +182,8 @@ class MetadataSOAPClient:
             Async retrieve request ID
         """
         version = api_version or self.session.api_version
+        # Remove 'v' prefix for SOAP body (expects numeric version)
+        version_num = version.lstrip('v')
 
         # Encode package.xml as base64
         package_b64 = base64.b64encode(package_xml.encode("utf-8")).decode("ascii")
@@ -184,7 +191,7 @@ class MetadataSOAPClient:
         body_content = f"""
     <met:retrieve>
       <met:retrieveRequest>
-        <met:apiVersion>{version}</met:apiVersion>
+        <met:apiVersion>{version_num}</met:apiVersion>
         <met:unpackaged>{package_b64}</met:unpackaged>
       </met:retrieveRequest>
     </met:retrieve>"""
@@ -304,7 +311,7 @@ class MetadataSOAPClient:
         Args:
             zip_file: ZIP file content (bytes)
             check_only: Validation only (no actual deployment)
-            run_tests: Run all tests during deployment
+            run_tests: Run local tests during deployment (default: False)
             rollback_on_error: Rollback all changes on error
 
         Returns:
@@ -319,7 +326,8 @@ class MetadataSOAPClient:
       <met:DeployOptions>
         <met:checkOnly>{str(check_only).lower()}</met:checkOnly>
         <met:rollbackOnError>{str(rollback_on_error).lower()}</met:rollbackOnError>
-        <met:runTests>{str(run_tests).lower()}</met:runTests>
+        <met:testLevel>{'RunLocalTests' if run_tests else 'NoTestRun'}</met:testLevel>
+        <met:singlePackage>true</met:singlePackage>
       </met:DeployOptions>
     </met:deploy>"""
 
@@ -421,6 +429,13 @@ class MetadataSOAPClient:
                 ),
             }
             result["componentFailures"].append(comp_info)
+
+        # Extract top-level error message
+        error_message = result_elem.findtext(
+            "{http://soap.sforce.com/2006/04/metadata}errorMessage"
+        )
+        if error_message:
+            result["messages"].append(f"Global Error: {error_message}")
 
         return result
 

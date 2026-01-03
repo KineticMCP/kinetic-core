@@ -4,7 +4,7 @@ Metadata templates for common use cases.
 Provides pre-built templates for typical Salesforce configurations.
 """
 
-from typing import List
+from typing import List, Dict
 from kinetic_core.metadata.models import (
     CustomField,
     CustomObject,

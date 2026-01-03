@@ -322,18 +322,69 @@ class MetadataClient:
         """
         # Create temporary directory with field metadata
         import tempfile
+        from xml.etree import ElementTree as ET
+
         with tempfile.TemporaryDirectory() as tmpdir:
-            # Create object directory structure
-            obj_dir = Path(tmpdir) / "objects" / field.sobject
+            # For deploying fields to existing objects (standard or custom),
+            # we need to create a partial CustomObject XML with just the field
+
+            # Create objects directory
+            obj_dir = Path(tmpdir) / "objects"
             obj_dir.mkdir(parents=True)
 
-            # Write field XML
-            field_file = obj_dir / f"{field.name}.field-meta.xml"
-            field_xml = custom_field_to_xml(field)
-            field_file.write_text(field_xml, encoding="utf-8")
+            # Parse the field XML to extract field elements
+            field_xml_str = custom_field_to_xml(field)
+            field_root = ET.fromstring(field_xml_str)
 
-            # Create package.xml
-            package_xml = create_package_xml(["CustomField"], self.session.api_version)
+            # Remove the xmlns attribute from the root to avoid duplication
+            if 'xmlns' in field_root.attrib:
+                del field_root.attrib['xmlns']
+
+            # Create CustomObject wrapper with fields element
+            custom_obj_root = ET.Element("CustomObject")
+            custom_obj_root.set("xmlns", "http://soap.sforce.com/2006/04/metadata")
+
+            # Rename CustomField to fields (Salesforce expects <fields> tag)
+            field_root.tag = "fields"
+            custom_obj_root.append(field_root)
+
+            # Write the CustomObject XML file
+            # Note: For Metadata API format, use .object extension
+            obj_file = obj_dir / f"{field.sobject}.object"
+            obj_xml = ET.tostring(custom_obj_root, encoding="unicode")
+
+            # Remove duplicate xmlns attributes if present
+            import re
+            obj_xml = re.sub(r'(\sxmlns="[^"]+")(\sxmlns="[^"]+")', r'\1', obj_xml)
+
+            # Add XML declaration
+            obj_xml_with_decl = f'<?xml version="1.0" encoding="UTF-8"?>\n{obj_xml}'
+
+            # DEBUG: Print generated XML
+            print(f"[DEBUG] Generated CustomObject XML:\n{obj_xml_with_decl}")
+
+            obj_file.write_text(obj_xml_with_decl, encoding="utf-8")
+
+            # Create package.xml with CustomObject type
+            from xml.etree import ElementTree as ET
+            pkg_root = ET.Element("Package")
+            pkg_root.set("xmlns", "http://soap.sforce.com/2006/04/metadata")
+
+            types_elem = ET.SubElement(pkg_root, "types")
+            members_elem = ET.SubElement(types_elem, "members")
+            members_elem.text = field.sobject
+            name_elem = ET.SubElement(types_elem, "name")
+            name_elem.text = "CustomObject"
+
+            version_elem = ET.SubElement(pkg_root, "version")
+            version_num = self.session.api_version.lstrip('v')
+            version_elem.text = version_num
+
+            package_xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(pkg_root, encoding="unicode")
+
+            # DEBUG: Print package.xml
+            print(f"[DEBUG] Generated package.xml:\n{package_xml}")
+
             package_file = Path(tmpdir) / "package.xml"
             package_file.write_text(package_xml, encoding="utf-8")
 
@@ -375,25 +426,33 @@ class MetadataClient:
         import tempfile
         with tempfile.TemporaryDirectory() as tmpdir:
             # Create object directory
-            obj_dir = Path(tmpdir) / "objects" / obj.name
+            obj_dir = Path(tmpdir) / "objects"
             obj_dir.mkdir(parents=True)
 
             # Write object XML
-            obj_file = obj_dir / f"{obj.name}.object-meta.xml"
+            # Note: For Metadata API format, use .object extension and include fields in the file
+            obj_file = obj_dir / f"{obj.name}.object"
             obj_xml = custom_object_to_xml(obj)
             obj_file.write_text(obj_xml, encoding="utf-8")
 
-            # Write fields
-            for field in obj.fields:
-                field_file = obj_dir / f"{field.name}.field-meta.xml"
-                field_xml = custom_field_to_xml(field)
-                field_file.write_text(field_xml, encoding="utf-8")
-
             # Create package.xml
-            types = ["CustomObject"]
-            if obj.fields:
-                types.append("CustomField")
-            package_xml = create_package_xml(types, self.session.api_version)
+            # Use explicit member name instead of wildcard to ensure it's picked up
+            from xml.etree import ElementTree as ET
+            pkg_root = ET.Element("Package")
+            pkg_root.set("xmlns", "http://soap.sforce.com/2006/04/metadata")
+
+            types_elem = ET.SubElement(pkg_root, "types")
+            members_elem = ET.SubElement(types_elem, "members")
+            members_elem.text = obj.name
+            name_elem = ET.SubElement(types_elem, "name")
+            name_elem.text = "CustomObject"
+
+            version_elem = ET.SubElement(pkg_root, "version")
+            version_num = self.session.api_version.lstrip('v')
+            version_elem.text = version_num
+
+            package_xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(pkg_root, encoding="unicode")
+            
             package_file = Path(tmpdir) / "package.xml"
             package_file.write_text(package_xml, encoding="utf-8")
 
@@ -513,7 +572,7 @@ class MetadataClient:
 
             for file_path in source_path.rglob('*'):
                 if file_path.is_file():
-                    arcname = file_path.relative_to(source_path)
+                    arcname = str(file_path.relative_to(source_path)).replace("\\", "/")
                     zip_file.write(file_path, arcname)
 
         return zip_buffer.getvalue()
