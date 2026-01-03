@@ -19,6 +19,7 @@ This toolkit provides a flexible, configuration-driven framework for:
 - Authentication (JWT Bearer Flow, OAuth Password Flow)
 - CRUD operations on any Salesforce object
 - Bulk API v2 for high-volume data operations
+- Metadata API for configuration management
 - Field mapping and data transformation
 - ETL pipelines for data synchronization
 - Comprehensive logging and error handling
@@ -37,6 +38,7 @@ from kinetic_core.core.client import SalesforceClient
 from kinetic_core.mapping.field_mapper import FieldMapper
 from kinetic_core.pipeline.sync_pipeline import SyncPipeline, SyncMode
 from kinetic_core.bulk import BulkV2Client, BulkJob, BulkResult, BulkQueryResult, BulkOperation
+from kinetic_core.metadata import MetadataClient, CustomField, CustomObject
 
 __all__ = [
     "JWTAuthenticator",
@@ -51,4 +53,7 @@ __all__ = [
     "BulkResult",
     "BulkQueryResult",
     "BulkOperation",
+    "MetadataClient",
+    "CustomField",
+    "CustomObject",
 ]
