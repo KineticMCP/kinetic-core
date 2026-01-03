@@ -4,6 +4,9 @@
 
 > The core engine for Salesforce AI agents. A comprehensive, production-ready Python library for Salesforce integration.
 
+### 🌟 Our Mission
+**To democratize Salesforce integration for the AI era.** We believe that connecting AI agents to business data should be standard, open, and accessible to every developer, not just large enterprises. `kinetic-core` is the open-source foundation of this vision.
+
 > **Part of the [KineticMCP](https://kineticmcp.com) ecosystem** - AI-powered Salesforce integration tools by [Antonio Trento](https://antoniotrento.net)
 
 > [!IMPORTANT]
