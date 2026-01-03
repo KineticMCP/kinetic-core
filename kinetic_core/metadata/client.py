@@ -31,6 +31,7 @@ from kinetic_core.metadata.xml_parser import (
     parse_custom_object,
     parse_package_xml,
 )
+from kinetic_core.metadata.soap_client import MetadataSOAPClient
 
 
 class MetadataClient:
@@ -72,8 +73,7 @@ class MetadataClient:
             session: Authenticated Salesforce session
         """
         self.session = session
-        self.base_url = f"{session.instance_url}/services/Soap/m/{session.api_version}"
-        self.metadata_url = f"{session.instance_url}/services/Soap/m/{session.api_version}"
+        self.soap_client = MetadataSOAPClient(session)
 
     def describe_metadata(self, api_version: Optional[str] = None) -> Dict[str, Any]:
         """
@@ -89,19 +89,7 @@ class MetadataClient:
             >>> types = client.metadata.describe_metadata()
             >>> print(f"Available types: {len(types['metadataObjects'])}")
         """
-        # TODO: Implement SOAP call to describeMetadata
-        # For now, return a stub with common types
-        return {
-            "organizationNamespace": "",
-            "partialSaveAllowed": True,
-            "testRequired": False,
-            "metadataObjects": [
-                {"directoryName": "objects", "xmlName": "CustomObject"},
-                {"directoryName": "fields", "xmlName": "CustomField"},
-                {"directoryName": "validationRules", "xmlName": "ValidationRule"},
-                {"directoryName": "workflows", "xmlName": "WorkflowRule"},
-            ]
-        }
+        return self.soap_client.describe_metadata(api_version)
 
     def retrieve(
         self,
@@ -109,6 +97,8 @@ class MetadataClient:
         output_dir: str,
         specific_components: Optional[Dict[str, List[str]]] = None,
         api_version: Optional[str] = None,
+        wait: bool = True,
+        timeout: int = 300,
     ) -> RetrieveResult:
         """
         Retrieve metadata from Salesforce org.
@@ -120,6 +110,8 @@ class MetadataClient:
             specific_components: Optional dict mapping type to specific members.
                                If None, retrieves all (*) for each type.
             api_version: API version (defaults to session version)
+            wait: If True, wait for operation to complete (default: True)
+            timeout: Maximum wait time in seconds (default: 300)
 
         Returns:
             RetrieveResult with status and file properties
@@ -140,23 +132,71 @@ class MetadataClient:
             ...     }
             ... )
         """
-        version = api_version or self.session.api_version
-
         # Create package.xml
         package_xml = self._create_retrieve_package(
-            component_types, specific_components
+            component_types, specific_components, api_version
         )
 
-        # TODO: Implement SOAP call to retrieve metadata
-        # For now, return a stub result
+        # Start retrieve operation
+        async_id = self.soap_client.retrieve(package_xml, api_version)
+
+        if not wait:
+            # Return immediately with async ID
+            return RetrieveResult(
+                success=False,
+                id=async_id,
+                status="InProgress",
+                messages=[f"Retrieve started. Use check_retrieve_status('{async_id}') to monitor."]
+            )
+
+        # Wait for completion
+        try:
+            status = self.soap_client.wait_for_retrieve(async_id, timeout)
+        except TimeoutError as e:
+            return RetrieveResult(
+                success=False,
+                id=async_id,
+                status="Timeout",
+                messages=[str(e)]
+            )
+
+        # Build result
         result = RetrieveResult(
-            success=False,
-            id="",
-            status="NotImplemented",
-            messages=["Retrieve not yet implemented - Sprint 2"]
+            success=status["success"],
+            id=async_id,
+            status=status["status"],
+            file_properties=status.get("fileProperties", []),
+            messages=status.get("messages", []),
+            zip_file=status.get("zipFile"),
         )
+
+        # Extract ZIP if successful
+        if result.success and result.zip_file:
+            self._extract_retrieve_zip(result.zip_file, output_dir)
+            result.messages.append(f"Metadata extracted to {output_dir}")
 
         return result
+
+    def check_retrieve_status(self, async_id: str) -> RetrieveResult:
+        """
+        Check status of an async retrieve operation.
+
+        Args:
+            async_id: Async process ID from retrieve()
+
+        Returns:
+            RetrieveResult with current status
+        """
+        status = self.soap_client.check_retrieve_status(async_id)
+
+        return RetrieveResult(
+            success=status["success"],
+            id=async_id,
+            status=status["status"],
+            file_properties=status.get("fileProperties", []),
+            messages=status.get("messages", []),
+            zip_file=status.get("zipFile"),
+        )
 
     def deploy(
         self,
@@ -164,6 +204,8 @@ class MetadataClient:
         run_tests: bool = False,
         check_only: bool = False,
         rollback_on_error: bool = True,
+        wait: bool = True,
+        timeout: int = 300,
     ) -> DeployResult:
         """
         Deploy metadata to Salesforce org.
@@ -173,6 +215,8 @@ class MetadataClient:
             run_tests: Whether to run tests during deployment
             check_only: Dry-run mode (validate only, don't deploy)
             rollback_on_error: Rollback all changes if any component fails
+            wait: If True, wait for operation to complete (default: True)
+            timeout: Maximum wait time in seconds (default: 300)
 
         Returns:
             DeployResult with deployment status
@@ -190,15 +234,64 @@ class MetadataClient:
             ...     run_tests=True
             ... )
         """
-        # TODO: Implement in Sprint 3
-        result = DeployResult(
-            success=False,
-            id="",
-            status="NotImplemented",
-            messages=["Deploy not yet implemented - Sprint 3"]
+        # Create ZIP from source directory
+        zip_data = self._create_deploy_zip(source_dir)
+
+        # Start deploy operation
+        async_id = self.soap_client.deploy(
+            zip_data, check_only, run_tests, rollback_on_error
         )
 
-        return result
+        if not wait:
+            # Return immediately
+            return DeployResult(
+                success=False,
+                id=async_id,
+                status="InProgress",
+                messages=[f"Deploy started. Use check_deploy_status('{async_id}') to monitor."]
+            )
+
+        # Wait for completion
+        try:
+            status = self.soap_client.wait_for_deploy(async_id, timeout)
+        except TimeoutError as e:
+            return DeployResult(
+                success=False,
+                id=async_id,
+                status="Timeout",
+                messages=[str(e)]
+            )
+
+        # Build result
+        return DeployResult(
+            success=status["success"],
+            id=async_id,
+            status=status["status"],
+            component_successes=[s["fullName"] for s in status.get("componentSuccesses", [])],
+            component_failures=status.get("componentFailures", []),
+            messages=[],
+        )
+
+    def check_deploy_status(self, async_id: str) -> DeployResult:
+        """
+        Check status of an async deploy operation.
+
+        Args:
+            async_id: Async process ID from deploy()
+
+        Returns:
+            DeployResult with current status
+        """
+        status = self.soap_client.check_deploy_status(async_id)
+
+        return DeployResult(
+            success=status["success"],
+            id=async_id,
+            status=status["status"],
+            component_successes=[s["fullName"] for s in status.get("componentSuccesses", [])],
+            component_failures=status.get("componentFailures", []),
+            messages=[],
+        )
 
     def deploy_field(
         self,
@@ -225,18 +318,25 @@ class MetadataClient:
             ... )
             >>> result = client.metadata.deploy_field(field)
         """
-        # Generate XML
-        field_xml = custom_field_to_xml(field)
+        # Create temporary directory with field metadata
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Create object directory structure
+            obj_dir = Path(tmpdir) / "objects" / field.sobject
+            obj_dir.mkdir(parents=True)
 
-        # TODO: Implement in Sprint 3
-        result = DeployResult(
-            success=False,
-            id="",
-            status="NotImplemented",
-            messages=[f"Deploy field {field.name} not yet implemented - Sprint 3"]
-        )
+            # Write field XML
+            field_file = obj_dir / f"{field.name}.field-meta.xml"
+            field_xml = custom_field_to_xml(field)
+            field_file.write_text(field_xml, encoding="utf-8")
 
-        return result
+            # Create package.xml
+            package_xml = create_package_xml(["CustomField"], self.session.api_version)
+            package_file = Path(tmpdir) / "package.xml"
+            package_file.write_text(package_xml, encoding="utf-8")
+
+            # Deploy
+            return self.deploy(tmpdir, check_only=check_only)
 
     def deploy_object(
         self,
@@ -269,18 +369,34 @@ class MetadataClient:
             ... )
             >>> result = client.metadata.deploy_object(obj)
         """
-        # Generate XML
-        object_xml = custom_object_to_xml(obj)
+        # Create temporary directory with object metadata
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Create object directory
+            obj_dir = Path(tmpdir) / "objects" / obj.name
+            obj_dir.mkdir(parents=True)
 
-        # TODO: Implement in Sprint 3
-        result = DeployResult(
-            success=False,
-            id="",
-            status="NotImplemented",
-            messages=[f"Deploy object {obj.name} not yet implemented - Sprint 3"]
-        )
+            # Write object XML
+            obj_file = obj_dir / f"{obj.name}.object-meta.xml"
+            obj_xml = custom_object_to_xml(obj)
+            obj_file.write_text(obj_xml, encoding="utf-8")
 
-        return result
+            # Write fields
+            for field in obj.fields:
+                field_file = obj_dir / f"{field.name}.field-meta.xml"
+                field_xml = custom_field_to_xml(field)
+                field_file.write_text(field_xml, encoding="utf-8")
+
+            # Create package.xml
+            types = ["CustomObject"]
+            if obj.fields:
+                types.append("CustomField")
+            package_xml = create_package_xml(types, self.session.api_version)
+            package_file = Path(tmpdir) / "package.xml"
+            package_file.write_text(package_xml, encoding="utf-8")
+
+            # Deploy
+            return self.deploy(tmpdir, check_only=check_only)
 
     def compare(
         self,
@@ -319,12 +435,45 @@ class MetadataClient:
     def _create_retrieve_package(
         self,
         component_types: List[str],
-        specific_components: Optional[Dict[str, List[str]]] = None
+        specific_components: Optional[Dict[str, List[str]]] = None,
+        api_version: Optional[str] = None,
     ) -> str:
         """Create package.xml for retrieve operation."""
-        # Use xml_builder to create package.xml
-        # For now, simplified version
-        return create_package_xml(component_types, self.session.api_version)
+        version = api_version or self.session.api_version
+
+        # Build package.xml manually to support specific members
+        from xml.etree import ElementTree as ET
+
+        root = ET.Element("Package")
+        root.set("xmlns", "http://soap.sforce.com/2006/04/metadata")
+
+        for comp_type in component_types:
+            type_elem = ET.SubElement(root, "types")
+
+            # Add members
+            if specific_components and comp_type in specific_components:
+                # Specific members
+                for member in specific_components[comp_type]:
+                    member_elem = ET.SubElement(type_elem, "members")
+                    member_elem.text = member
+            else:
+                # All members
+                member_elem = ET.SubElement(type_elem, "members")
+                member_elem.text = "*"
+
+            # Add type name
+            name_elem = ET.SubElement(type_elem, "name")
+            name_elem.text = comp_type
+
+        # Add version
+        version_elem = ET.SubElement(root, "version")
+        version_elem.text = version
+
+        # Convert to string
+        from xml.dom import minidom
+        rough_string = ET.tostring(root, encoding="unicode")
+        reparsed = minidom.parseString(rough_string)
+        return reparsed.toprettyxml(indent="    ", encoding=None)
 
     def _create_deploy_zip(self, source_dir: str) -> bytes:
         """Create ZIP file for deployment."""
