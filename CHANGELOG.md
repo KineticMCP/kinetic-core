@@ -177,12 +177,7 @@ if result.errors:
 ## [Unreleased]
 
 ### Planned
-- Metadata API integration
-- Streaming API support (PushTopic, Generic Streaming)
-- Built-in retry mechanism with exponential backoff
-- Dry-run mode for sync pipelines
-- Performance metrics and monitoring
-- Integration with popular ORMs
+- See `docs/roadmap/` for future plans.
 
 ---
 

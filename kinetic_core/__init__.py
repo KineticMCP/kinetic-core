@@ -28,7 +28,7 @@ Author: Antonio Trento
 License: MIT
 """
 
-__version__ = "2.0.1"
+__version__ = "2.1.0"
 __author__ = "Antonio Trento"
 
 from kinetic_core.auth.jwt_auth import JWTAuthenticator
