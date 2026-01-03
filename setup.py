@@ -28,7 +28,7 @@ with open(requirements_file, "r", encoding="utf-8") as f:
 
 setup(
     name="kinetic-core",
-    version="2.1.0",
+    version="2.1.1",
     author="Antonio Trento",
     author_email="info@antoniotrento.net",
     description="Salesforce integration library with Bulk API v2 support",

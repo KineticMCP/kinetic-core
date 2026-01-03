@@ -1,6 +1,6 @@
 # Kinetic Core
 
-![Kinetic Core Header](assets/kinetic-core.jpg)
+![Kinetic Core Header](https://raw.githubusercontent.com/KineticMCP/kinetic-core/main/assets/kinetic-core.jpg)
 
 > The core engine for Salesforce AI agents. A comprehensive, production-ready Python library for Salesforce integration.
 
@@ -17,7 +17,7 @@
 
 [![PyPI version](https://badge.fury.io/py/kinetic-core.svg)](https://badge.fury.io/py/kinetic-core)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://pypi.org/project/kinetic-core/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/KineticMCP/kinetic-core/blob/main/LICENSE)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ---
@@ -241,7 +241,7 @@ result = client.bulk.upsert("Account", updates, "External_Key__c")
 - 📊 Detailed per-record error reporting
 - 🎯 Smart retry and exponential backoff
 
-**[📖 Complete Bulk API Documentation →](docs/api/BULK_API_V2.md)**
+**[📖 Complete Bulk API Documentation →](https://kineticmcp.com/kinetic-core/api/BULK_API_V2/)**
 
 ### 5. Metadata API (Schema Management)
 
@@ -271,7 +271,7 @@ client.metadata.retrieve(
 )
 ```
 
-**[📖 Complete Metadata API Documentation →](docs/api/METADATA_API.md)**
+**[📖 Complete Metadata API Documentation →](https://kineticmcp.com/kinetic-core/api/METADATA_API/)**
 
 ---
 
@@ -634,9 +634,9 @@ batches = batch_records(records, batch_size=200)
 
 The `examples/` directory contains comprehensive examples:
 
-1. **[01_basic_authentication.py](examples/01_basic_authentication.py)** - Authentication methods
-2. **[02_crud_operations.py](examples/02_crud_operations.py)** - CRUD operations
-3. **[03_data_sync_pipeline.py](examples/03_data_sync_pipeline.py)** - Data synchronization
+1. **[01_basic_authentication.py](https://github.com/KineticMCP/kinetic-core/blob/main/examples/01_basic_authentication.py)** - Authentication methods
+2. **[02_crud_operations.py](https://github.com/KineticMCP/kinetic-core/blob/main/examples/02_crud_operations.py)** - CRUD operations
+3. **[03_data_sync_pipeline.py](https://github.com/KineticMCP/kinetic-core/blob/main/examples/03_data_sync_pipeline.py)** - Data synchronization
 
 Run an example:
 ```bash
@@ -650,7 +650,7 @@ python 01_basic_authentication.py
 
 ### Environment Variables
 
-Copy [config/.env.example](config/.env.example) to `.env` and configure:
+Copy [config/.env.example](https://github.com/KineticMCP/kinetic-core/blob/main/config/.env.example) to `.env` and configure:
 
 ```bash
 # Salesforce
@@ -666,7 +666,7 @@ LOG_LEVEL=INFO
 
 ### YAML Configuration
 
-See [config/sync_config_example.yaml](config/sync_config_example.yaml) for pipeline configuration.
+See [config/sync_config_example.yaml](https://github.com/KineticMCP/kinetic-core/blob/main/config/sync_config_example.yaml) for pipeline configuration.
 
 ---
 
@@ -767,11 +767,11 @@ Built and maintained by **Antonio Trento** - connecting Salesforce with the futu
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/KineticMCP/kinetic-core/blob/main/LICENSE) file for details.
 
 Copyright (c) 2025 Antonio Trento. All rights reserved.
 
-See [COPYRIGHT](COPYRIGHT) for detailed attribution and trademark information.
+See [COPYRIGHT](https://github.com/KineticMCP/kinetic-core/blob/main/COPYRIGHT) for detailed attribution and trademark information.
 
 ---
 
