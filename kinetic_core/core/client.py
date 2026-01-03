@@ -79,6 +79,7 @@ class SalesforceClient:
         self.session = session
         self.logger = logger_instance or logger
         self._bulk_client = None  # Lazy initialization
+        self._metadata_client = None  # Lazy initialization
 
         if not session.is_valid():
             raise ValueError("Invalid session: missing instance_url or access_token")
@@ -103,6 +104,40 @@ class SalesforceClient:
             from kinetic_core.bulk import BulkV2Client
             self._bulk_client = BulkV2Client(self.session)
         return self._bulk_client
+
+    @property
+    def metadata(self):
+        """
+        Access Metadata API operations.
+
+        Returns:
+            MetadataClient: Client for metadata operations
+
+        Example:
+            ```python
+            # Create a custom field
+            from kinetic_core.metadata import CustomField, FieldType
+
+            field = CustomField(
+                sobject="Account",
+                name="Customer_Tier__c",
+                type=FieldType.TEXT,
+                label="Customer Tier",
+                length=50
+            )
+            result = client.metadata.deploy_field(field)
+
+            # Retrieve metadata
+            result = client.metadata.retrieve(
+                component_types=["CustomObject"],
+                output_dir="./metadata"
+            )
+            ```
+        """
+        if self._metadata_client is None:
+            from kinetic_core.metadata import MetadataClient
+            self._metadata_client = MetadataClient(self.session)
+        return self._metadata_client
 
     # ============================================================================
     # CREATE Operations

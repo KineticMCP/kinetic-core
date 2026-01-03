@@ -40,6 +40,13 @@
   - Progress tracking with callbacks
   - Comprehensive per-record error reporting
   - Async job processing
+ 
+- **🏗️ Metadata API Support** _(NEW in v2.1.0)_
+  - **Configuration as Code**: Manage Objects and Fields via Python
+  - **Retrieve**: Backup or analyze existing org metadata
+  - **Deploy**: Create custom objects and fields programmatically
+  - **Compare**: Diff local schema against the org
+  - **Templates**: Standard business object templates included
 
 - **🗺️ Flexible Field Mapping**
   - Simple field renaming
@@ -233,9 +240,39 @@ result = client.bulk.upsert("Account", updates, "External_Key__c")
 
 **[📖 Complete Bulk API Documentation →](docs/api/BULK_API_V2.md)**
 
+### 5. Metadata API (Schema Management)
+
+**✨ NEW in v2.1.0** - Manage your Salesforce data model:
+
+```python
+from kinetic_core.metadata import CustomField, CustomObject
+
+# 1. Create a new field
+field = CustomField(
+    sobject="Account",
+    name="Loyalty_Tier__c",
+    label="Loyalty Tier",
+    type="Picklist",
+    options=[
+        {"fullName": "Silver", "default": True},
+        {"fullName": "Gold"},
+        {"fullName": "Platinum"}
+    ]
+)
+client.metadata.deploy_field(field)
+
+# 2. Retrieve org metadata
+client.metadata.retrieve(
+    component_types=["CustomObject"],
+    output_dir="./schema_backup"
+)
+```
+
+**[📖 Complete Metadata API Documentation →](docs/api/METADATA_API.md)**
+
 ---
 
-### 5. Command-Line Interface
+### 6. Command-Line Interface
 
 ```bash
 # Test authentication

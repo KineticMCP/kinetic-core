@@ -51,6 +51,7 @@ nav:
     - Field Mapping: api/FIELD_MAPPING.md
     - Pipelines: api/PIPELINES.md
     - Bulk API v2: api/BULK_API_V2.md
+    - Metadata API: api/METADATA_API.md
   - Bulk API Guide:
     - Quick Start: guides/BULK_QUICKSTART.md
     - Practical Examples: examples/BULK_EXAMPLES.md
