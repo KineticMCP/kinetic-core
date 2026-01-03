@@ -32,6 +32,7 @@ from kinetic_core.metadata.xml_parser import (
     parse_package_xml,
 )
 from kinetic_core.metadata.soap_client import MetadataSOAPClient
+from kinetic_core.metadata.comparator import MetadataComparator, MetadataDiff
 
 
 class MetadataClient:
@@ -73,6 +74,7 @@ class MetadataClient:
             session: Authenticated Salesforce session
         """
         self.session = session
+        self.comparator = MetadataComparator()
         self.soap_client = MetadataSOAPClient(session)
 
     def describe_metadata(self, api_version: Optional[str] = None) -> Dict[str, Any]:
@@ -401,34 +403,61 @@ class MetadataClient:
     def compare(
         self,
         source_dir: str,
-        target_org_session: Optional[SalesforceSession] = None
-    ) -> Dict[str, Any]:
+        target_dir: Optional[str] = None,
+        component_types: Optional[List[str]] = None,
+    ) -> MetadataDiff:
         """
-        Compare metadata between two orgs or local vs org.
+        Compare metadata between two sources.
 
         Args:
-            source_dir: Local metadata directory
-            target_org_session: Optional session for target org.
-                              If None, compares with current org.
+            source_dir: Source metadata directory
+            target_dir: Target metadata directory (if None, retrieves from current org)
+            component_types: Optional list of component types to compare
 
         Returns:
-            Dictionary with differences
+            MetadataDiff with differences
 
         Example:
-            >>> # Compare local metadata with org
+            >>> # Compare local directories
+            >>> diff = client.metadata.compare(
+            ...     source_dir="./source_metadata",
+            ...     target_dir="./target_metadata"
+            ... )
+            >>> print(f"Added: {diff.summary['added']}")
+            >>> print(f"Modified: {diff.summary['modified']}")
+            >>>
+            >>> # Compare local with current org
             >>> diff = client.metadata.compare(
             ...     source_dir="./metadata"
             ... )
-            >>> print(f"New fields: {len(diff['added_fields'])}")
-            >>> print(f"Modified: {len(diff['modified'])}")
         """
-        # TODO: Implement in Sprint 4
-        return {
-            "added": [],
-            "modified": [],
-            "deleted": [],
-            "message": "Compare not yet implemented - Sprint 4"
-        }
+        if target_dir:
+            # Compare two local directories
+            return self.comparator.compare_directories(
+                source_dir, target_dir, component_types
+            )
+        else:
+            # Compare local with org - retrieve org metadata first
+            import tempfile
+            with tempfile.TemporaryDirectory() as tmpdir:
+                # Retrieve metadata from org
+                types = component_types or ["CustomObject", "CustomField"]
+                result = self.retrieve(
+                    component_types=types,
+                    output_dir=tmpdir,
+                    wait=True,
+                )
+
+                if not result.success:
+                    # Return empty diff with error message
+                    diff = MetadataDiff()
+                    diff.messages = result.messages
+                    return diff
+
+                # Compare
+                return self.comparator.compare_directories(
+                    source_dir, tmpdir, component_types
+                )
 
     # Helper methods
 

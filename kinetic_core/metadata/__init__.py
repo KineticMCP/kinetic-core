@@ -6,6 +6,8 @@ This module provides support for Salesforce Metadata API operations:
 - Deploy metadata to Salesforce orgs
 - Create custom objects and fields
 - Manage Salesforce configuration as code
+- Compare metadata between sources
+- Use pre-built templates for common configurations
 
 Example:
     >>> from kinetic_core import SalesforceClient
@@ -22,6 +24,16 @@ Example:
     ...     source_dir="./metadata",
     ...     run_tests=True
     ... )
+    >>>
+    >>> # Compare metadata
+    >>> diff = client.metadata.compare(
+    ...     source_dir="./source",
+    ...     target_dir="./target"
+    ... )
+    >>>
+    >>> # Use templates
+    >>> from kinetic_core.metadata import templates
+    >>> fields = templates.get_template("enterprise_crm", sobject="Account")
 """
 
 from kinetic_core.metadata.models import (
@@ -30,8 +42,12 @@ from kinetic_core.metadata.models import (
     ValidationRule,
     WorkflowRule,
     PicklistValue,
+    FieldType,
+    SharingModel,
 )
 from kinetic_core.metadata.client import MetadataClient
+from kinetic_core.metadata.comparator import MetadataComparator, MetadataDiff
+from kinetic_core.metadata import templates
 
 __all__ = [
     "MetadataClient",
@@ -40,4 +56,9 @@ __all__ = [
     "ValidationRule",
     "WorkflowRule",
     "PicklistValue",
+    "FieldType",
+    "SharingModel",
+    "MetadataComparator",
+    "MetadataDiff",
+    "templates",
 ]
