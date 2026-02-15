@@ -795,10 +795,10 @@ See [COPYRIGHT](https://github.com/KineticMCP/kinetic-core/blob/main/COPYRIGHT) 
 
 ## 📊 Project Stats
 
-![GitHub stars](https://img.shields.io/github/stars/antonio-backend-projects/kinetic-core?style=social)
-![GitHub forks](https://img.shields.io/github/forks/antonio-backend-projects/kinetic-core?style=social)
-![GitHub issues](https://img.shields.io/github/issues/antonio-backend-projects/kinetic-core/)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/antonio-backend-projects/kinetic-core/)
+![GitHub stars](https://img.shields.io/github/stars/KineticMCP/kinetic-core?style=social)
+![GitHub forks](https://img.shields.io/github/forks/KineticMCP/kinetic-core?style=social)
+![GitHub issues](https://img.shields.io/github/issues/KineticMCP/kinetic-core/)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/KineticMCP/kinetic-core/)
 
 ---
 
